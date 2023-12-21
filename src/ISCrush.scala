@@ -15,8 +15,7 @@ object ISCrush extends App{
   var gridOne: GridManager = new GridManager(12)
   gridOne.displayGrid()
 
-  var gameOne : ISCrush = new ISCrush()
+  /*var gameOne : ISCrush = new ISCrush()
 
-
-  gameOne.playerChoice()
+  gameOne.playerChoice()*/
 }
