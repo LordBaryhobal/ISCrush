@@ -1,5 +1,7 @@
 object ISCrush extends App{
 
+  var running : Boolean = true
+
   def playerChoice(): Unit = {
     println("Choose a letter")
     println("Number of the line : ")
@@ -11,12 +13,18 @@ object ISCrush extends App{
     gridOne.swapCandies(x,y,c)
   }
 
+  def mainLoop(): Unit = {
+    while(running){
+      gridOne.simplifyGrid()
+      gridOne.displayGrid()
+      playerChoice()
+    }
+  }
+
   Candy.init()
 
-  var gridOne: GridManager = new GridManager(12)
-  gridOne.displayGrid()
-  playerChoice()
-  gridOne.displayGrid()
+  var gridOne: GridManager = new GridManager(6)
+  mainLoop()
 
 
 
