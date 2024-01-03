@@ -168,6 +168,41 @@ class GridManager(size : Int) {
       moveDownUntilFull()
     } while (changed)
   }
+
+  def swapCandies(i : Int, j : Int, c : Char): Unit = {
+    var x1 : Int = i
+    var y1 : Int = j
+
+    var x2 : Int = 0
+    var y2 : Int = 0
+
+    c match{
+      case 'W' => {
+        x2 = x1
+        y2 = y1 - 1
+      }
+      case 'A' => {
+        x2 = x1 -1
+        y2 = y1
+      }
+      case 'S' => {
+        x2 = x1
+        y2 = y1 + 1
+      }
+      case 'D' => {
+        x2 = x1 + 1
+        y2 = y1
+      }
+    }
+    var a : Candy = grid(y2)(x2)
+    grid(y2)(x2) = grid(y1)(x1)
+    grid(y1)(x1) = a
+  }
+
+
+
+
+
 }
 
 object GridManager extends App {
