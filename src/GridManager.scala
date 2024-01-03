@@ -42,7 +42,7 @@ class GridManager(size : Int) {
    *
    * @return true if at least one combo was found, false otherwise
    */
-  def processCombos(): Boolean = {
+  private def processCombos(): Boolean = {
     copyGrid()
     var hasChanged: Boolean = false
 
@@ -103,7 +103,7 @@ class GridManager(size : Int) {
    * @param x2 X position of bottom right corner
    * @param y2 Y position of bottom right corner
    */
-  def simplifyCombo(x1: Int, y1: Int, x2: Int, y2: Int): Unit = {
+  private def simplifyCombo(x1: Int, y1: Int, x2: Int, y2: Int): Unit = {
     for (y: Int <- y1 to y2) {
       for (x: Int <- x1 to x2) {
         tmpGrid(y)(x) = Candy.empty()
@@ -114,7 +114,7 @@ class GridManager(size : Int) {
   /**
    * Makes a copy of the grid in `tmpGrid`
    */
-  def copyGrid(): Unit = {
+  private def copyGrid(): Unit = {
     tmpGrid = Array.ofDim(size, size)
 
     for (i: Int <- grid.indices) {
@@ -129,7 +129,7 @@ class GridManager(size : Int) {
    *
    * @return true if something was moved, false otherwise
    */
-  def moveDown(): Boolean = {
+  private def moveDown(): Boolean = {
     var moved: Boolean = false
 
     for (y: Int <- size - 1 to 0 by -1) {
@@ -149,14 +149,13 @@ class GridManager(size : Int) {
   /**
    * Moves down all columns with hole until the grid is full
    */
-  def moveDownUntilFull(): Unit = {
+  private def moveDownUntilFull(): Unit = {
     var moved: Boolean = true
 
     while (moved) {
       moved = moveDown()
     }
   }
-
 
   /**
    * Simplifies all combos and moves down columns until there is no combo
