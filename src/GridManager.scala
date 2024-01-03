@@ -126,17 +126,31 @@ class GridManager(size : Int) {
 
   /**
    * Moves down columns with holes
+   *
+   * @return true if something was moved, false otherwise
    */
-  def moveDown(): Unit = {
+  def moveDown(): Boolean = {
+    var moved: Boolean = false
+
     for (y: Int <- size - 1 to 0 by -1) {
       for (x: Int <- 0 until size) {
         if (grid(y)(x).isEmpty()) {
+          moved = true
           for (y2: Int <- y until 0 by -1) {
             grid(y2)(x) = grid(y2-1)(x)
           }
           grid(0)(x) = randomCandy()
         }
       }
+    }
+    return moved
+  }
+
+  def moveDownUntilFull(): Unit = {
+    var moved: Boolean = true
+
+    while (moved) {
+      moved = moveDown()
     }
   }
 }
@@ -147,6 +161,9 @@ object GridManager extends App {
   gridOne.displayGrid()
   val simplified: Boolean = gridOne.processCombos()
   println(s"Combos ? $simplified")
+  gridOne.displayGrid()
+  println("-----------")
+  gridOne.moveDownUntilFull()
   gridOne.displayGrid()
 }
 
