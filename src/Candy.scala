@@ -6,6 +6,8 @@ import scala.collection.mutable.ArrayBuffer
  */
 class Candy(var symbol : Char) {
   override def toString: String = ""+symbol
+
+  def isEmpty(): Boolean = symbol == ' '
 }
 
 object Candy extends App{
@@ -21,7 +23,7 @@ object Candy extends App{
     models.addOne('F')
   }
 
-  def empty(): Candy ={
+  def empty(): Candy = {
     return new Candy(' ')
   }
 }
