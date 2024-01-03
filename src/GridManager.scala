@@ -123,6 +123,22 @@ class GridManager(size : Int) {
       }
     }
   }
+
+  /**
+   * Moves down columns with holes
+   */
+  def moveDown(): Unit = {
+    for (y: Int <- size - 1 to 0 by -1) {
+      for (x: Int <- 0 until size) {
+        if (grid(y)(x).isEmpty()) {
+          for (y2: Int <- y until 0 by -1) {
+            grid(y2)(x) = grid(y2-1)(x)
+          }
+          grid(0)(x) = randomCandy()
+        }
+      }
+    }
+  }
 }
 
 object GridManager extends App {
