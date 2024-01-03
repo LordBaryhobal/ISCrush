@@ -3,6 +3,9 @@ class GridManager(size : Int) {
   var tmpGrid: Array[Array[Candy]] = Array.ofDim(size, size)
   generateRandomGrid()
 
+  /**
+   * Fills the grid with random candies
+   */
   def generateRandomGrid(): Unit = {
     for (i: Int <- 0 until size) {
       for (j: Int <- 0 until size) {
@@ -23,12 +26,22 @@ class GridManager(size : Int) {
     }
   }
 
+  /**
+   * Generates a random candy
+   *
+   * @return The random candy
+   */
   def randomCandy(): Candy = {
     val randomLetter = util.Random.nextInt(Candy.models.length)
     val candy : Candy = new Candy(Candy.models(randomLetter))
     return candy
   }
 
+  /**
+   * Scans the whole grid and simplifies combos
+   *
+   * @return true if at least one combo was found, false otherwise
+   */
   def processCombos(): Boolean = {
     copyGrid()
     var hasChanged: Boolean = false
@@ -82,6 +95,14 @@ class GridManager(size : Int) {
     return hasChanged
   }
 
+  /**
+   * Simplify one combo and replaces it with empty candies
+   *
+   * @param x1 X position of top left corner
+   * @param y1 Y position of top left corner
+   * @param x2 X position of bottom right corner
+   * @param y2 Y position of bottom right corner
+   */
   def simplifyCombo(x1: Int, y1: Int, x2: Int, y2: Int): Unit = {
     for (y: Int <- y1 to y2) {
       for (x: Int <- x1 to x2) {
@@ -90,6 +111,9 @@ class GridManager(size : Int) {
     }
   }
 
+  /**
+   * Makes a copy of the grid in `tmpGrid`
+   */
   def copyGrid(): Unit = {
     tmpGrid = Array.ofDim(size, size)
 
