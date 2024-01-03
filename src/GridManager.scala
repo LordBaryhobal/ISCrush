@@ -146,12 +146,28 @@ class GridManager(size : Int) {
     return moved
   }
 
+  /**
+   * Moves down all columns with hole until the grid is full
+   */
   def moveDownUntilFull(): Unit = {
     var moved: Boolean = true
 
     while (moved) {
       moved = moveDown()
     }
+  }
+
+
+  /**
+   * Simplifies all combos and moves down columns until there is no combo
+   */
+  def simplifyGrid(): Unit = {
+    var changed: Boolean = false
+
+    do {
+      changed = processCombos()
+      moveDownUntilFull()
+    } while (changed)
   }
 }
 
