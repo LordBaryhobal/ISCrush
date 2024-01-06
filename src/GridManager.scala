@@ -1,4 +1,4 @@
-class GridManager(size : Int) {
+class GridManager(val size : Int) {
   var grid: Array[Array[Candy]] = Array.ofDim(size, size)
   var tmpGrid: Array[Array[Candy]] = Array.ofDim(size, size)
   generateRandomGrid()

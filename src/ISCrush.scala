@@ -17,6 +17,7 @@ object ISCrush extends App{
     while(running){
       gridOne.simplifyGrid()
       gridOne.displayGrid()
+      renderer.render(gridOne)
       playerChoice()
     }
   }
@@ -24,6 +25,7 @@ object ISCrush extends App{
   Candy.init()
 
   var gridOne: GridManager = new GridManager(6)
+  var renderer: GridRenderer = new GridRenderer()
   mainLoop()
 
 
