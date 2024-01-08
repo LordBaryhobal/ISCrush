@@ -169,14 +169,14 @@ class GridManager(val size : Int) {
     } while (changed)
   }
 
-  def swapCandies(i : Int, j : Int, c : Int): Unit = {
-    var x1 : Int = i
-    var y1 : Int = j
+  def swapCandies(x : Int, y : Int, dir : Int): Unit = {
+    var x1 : Int = x
+    var y1 : Int = y
 
     var x2 : Int = 0
     var y2 : Int = 0
 
-    c match{
+    dir match {
       case 3 => {
         x2 = x1
         y2 = y1 - 1
