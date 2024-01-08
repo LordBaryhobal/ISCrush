@@ -3,13 +3,13 @@ object ISCrush extends App{
   var running : Boolean = true
 
   def playerChoice(): Unit = {
-    println("Choose a letter")
+    println("Choose a number")
     println("Number of the line : ")
     var y = Input.readInt()
     println("Number of the column : ")
     var x = Input.readInt()
     println("Symbol : ")
-    var c = Input.readChar()
+    var c = Input.readInt()
     gridOne.swapCandies(x,y,c)
   }
 

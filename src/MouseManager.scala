@@ -8,7 +8,8 @@ class MouseManager(val renderer: GridRenderer) extends MouseListener {
     val winX: Int = e.getX
     val winY: Int = e.getY
 
-    startPos = renderer.screenToGrid(winX, winY)
+
+    startPos = ISCrush.renderer.screenToGrid(winX, winY)
   }
 
   override def mouseReleased(e: MouseEvent): Unit = {
@@ -16,7 +17,9 @@ class MouseManager(val renderer: GridRenderer) extends MouseListener {
     val winY: Int = e.getY
 
     endPos = renderer.screenToGrid(winX, winY)
-    // TODO: call GridManager.swapCandies
+    var angle : Double = math.atan2(endPos._2 - startPos._2, endPos._1 - startPos._1)
+    var direction : Int = math.round(angle*2/math.Pi + 4).toInt%4
+    ISCrush.gridOne.swapCandies(startPos._1,startPos._2, direction)
   }
 
   override def mouseClicked(e: MouseEvent): Unit = {}
