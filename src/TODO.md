@@ -1,0 +1,8 @@
+- [ ] Score
+- [ ] Add error handling and boundaries
+- [ ] Images
+- [ ] Complete documentation
+- [ ] Center title
+- [ ] Prevent moving if doesn't combo
+- [ ] Animations
+- [ ] Dark theme
