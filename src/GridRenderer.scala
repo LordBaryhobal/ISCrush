@@ -15,23 +15,25 @@ class GridRenderer(val gridManager: GridManager) {
   val cellSize: Int = gridSize / gridManager.size
 
   def render(): Unit = {
-    window.clear()
+    window.frontBuffer.synchronized({
+      window.clear()
 
-    window.drawString(totalWidth/2-75, titleHeight/2+20, "ISCrush", Color.BLUE, 40)
-    window.setColor(Color.BLUE)
+      window.drawString(totalWidth/2-75, titleHeight/2+20, "ISCrush", Color.BLUE, 40)
+      window.setColor(Color.BLUE)
 
-    for (y: Int <- 0 until gridManager.size) {
-      for (x: Int <- 0 until gridManager.size) {
-        val (winX: Int, winY: Int) = gridToScreen(x, y)
+      for (y: Int <- 0 until gridManager.size) {
+        for (x: Int <- 0 until gridManager.size) {
+          val (winX: Int, winY: Int) = gridToScreen(x, y)
 
-        //val centerX: Int = winX + cellSize / 2
-        //val centerY: Int = winY + cellSize / 2
+          //val centerX: Int = winX + cellSize / 2
+          //val centerY: Int = winY + cellSize / 2
 
-        window.drawCircle(winX, winY, cellSize)
-        val candy: Candy = gridManager.grid(y)(x)
-        window.drawString(winX + cellSize/2, winY + cellSize/2, ""+candy.symbol)
+          window.drawCircle(winX, winY, cellSize)
+          val candy: Candy = gridManager.grid(y)(x)
+          window.drawString(winX + cellSize/2, winY + cellSize/2, ""+candy.symbol)
+        }
       }
-    }
+    })
 
     window.syncGameLogic(30)
   }
