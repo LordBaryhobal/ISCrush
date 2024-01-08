@@ -4,7 +4,6 @@ class MouseManager(val renderer: GridRenderer) extends MouseListener with InputH
   private var startPos: (Int, Int) = (0, 0)
   private var endPos: (Int, Int) = (0, 0)
   private var direction: Int = 0
-  private var waiting: Boolean = false
 
   override def mousePressed(e: MouseEvent): Unit = {
     val winX: Int = e.getX
@@ -20,7 +19,8 @@ class MouseManager(val renderer: GridRenderer) extends MouseListener with InputH
     endPos = renderer.screenToGrid(winX, winY)
     val angle : Double = math.atan2(endPos._2 - startPos._2, endPos._1 - startPos._1)
     direction = math.round(angle*2/math.Pi + 4).toInt%4
-    waiting = false
+
+    ISCrush.setInput(startPos._1, startPos._2, direction)
   }
 
   override def mouseClicked(e: MouseEvent): Unit = {}
@@ -28,10 +28,4 @@ class MouseManager(val renderer: GridRenderer) extends MouseListener with InputH
   override def mouseEntered(e: MouseEvent): Unit = {}
 
   override def mouseExited(e: MouseEvent): Unit = {}
-
-  override def getInput(): (Int, Int, Int) = {
-    waiting = true
-    while (waiting) {}
-    return (startPos._1, startPos._2, direction)
-  }
 }

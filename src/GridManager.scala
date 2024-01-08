@@ -12,6 +12,7 @@ class GridManager(val size : Int) {
         grid(i)(j) = randomCandy()
       }
     }
+    simplifyGrid()
   }
 
   /**

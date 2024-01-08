@@ -32,6 +32,8 @@ class GridRenderer(val gridManager: GridManager) {
         window.drawString(winX + cellSize/2, winY + cellSize/2, ""+candy.symbol)
       }
     }
+
+    window.syncGameLogic(30)
   }
 
   def gridToScreen(x: Int, y: Int): (Int, Int) = {

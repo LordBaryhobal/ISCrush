@@ -1,12 +1,16 @@
 class ConsoleManager extends InputHandler {
-  override def getInput(): (Int, Int, Int) = {
-    println("Choose a number")
-    println("Number of the line : ")
-    val y = Input.readInt()
-    println("Number of the column : ")
-    val x = Input.readInt()
-    println("Direction : ")
-    val dir = Input.readInt()
-    return (x, y, dir)
-  }
+  new Thread(new Runnable {
+    override def run(): Unit = {
+      while (true) {
+        println("Choose a number")
+        println("Number of the line : ")
+        val y = Input.readInt()
+        println("Number of the column : ")
+        val x = Input.readInt()
+        println("Direction : ")
+        val dir = Input.readInt()
+        ISCrush.setInput(x, y, dir)
+      }
+    }
+  }).start()
 }
