@@ -1,4 +1,4 @@
-- [ ] Score
+- [x] Score
 - [ ] Add error handling and boundaries
 - [ ] Images
 - [ ] Complete documentation
