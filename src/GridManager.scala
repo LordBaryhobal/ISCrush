@@ -198,10 +198,34 @@ class GridManager(val size : Int) {
         x2 = x1 + 1
         y2 = y1
       }
+      case _ => {
+        return
+      }
     }
+
+    if((x1 >= ISCrush.gridOne.size) || (x2 >= ISCrush.gridOne.size)){
+      return
+    }
+
+    if ((x1 < 0) || (x2 < 0)) {
+      return
+    }
+
+    if ((y1 < 0) || (y2 < 0)) {
+      return
+    }
+
+    if ((y1 >= ISCrush.gridOne.size) || (y2 >= ISCrush.gridOne.size)) {
+      return
+    }
+
+
+
     var a : Candy = grid(y2)(x2)
     grid(y2)(x2) = grid(y1)(x1)
     grid(y1)(x1) = a
+
+
   }
 
 

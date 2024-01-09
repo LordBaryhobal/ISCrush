@@ -1,5 +1,5 @@
 - [x] Score
-- [ ] Add error handling and boundaries
+- [x] Add error handling and boundaries
 - [ ] Images
 - [ ] Complete documentation
 - [ ] Center title
