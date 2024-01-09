@@ -1,3 +1,5 @@
+import hevs.graphics.utils.GraphicsBitmap
+
 class GridManager(val size : Int) {
   var grid: Array[Array[Candy]] = Array.ofDim(size, size)
   var tmpGrid: Array[Array[Candy]] = Array.ofDim(size, size)
@@ -34,7 +36,8 @@ class GridManager(val size : Int) {
    */
   def randomCandy(): Candy = {
     val randomLetter = util.Random.nextInt(Candy.models.length)
-    val candy : Candy = new Candy(Candy.models(randomLetter))
+    val (char : Char, img : GraphicsBitmap) = Candy.models(randomLetter)
+    val candy : Candy = new Candy(char, img)
     return candy
   }
 

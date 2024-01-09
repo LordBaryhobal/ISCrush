@@ -38,7 +38,7 @@ object ISCrush extends App{
   println(" (0) in the console (with keyboard)")
   println(" (1) in a window (with mouse)")
   var inputChoice: Int = Input.readInt()
-  var gridOne: GridManager = new GridManager(9)
+  var gridOne: GridManager = new GridManager(6)
   var renderer: GridRenderer = new GridRenderer(gridOne, score)
   var score: Score = new Score(400)
   inputChoice match {

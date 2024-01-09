@@ -1,5 +1,5 @@
 import hevs.graphics.FunGraphics
-
+import hevs.graphics.utils.GraphicsBitmap
 import java.awt.font.FontRenderContext
 import java.awt.{Color, Font}
 
@@ -21,14 +21,10 @@ class GridRenderer(val gridManager: GridManager, val score : Score) {
       window.clear()
 
       window.drawString(totalWidth/2-75, titleHeight/2+20, "ISCrush", Color.BLUE, 40)
-
-
       window.drawString(totalWidth/2 + 140, titleHeight/2+20, s"Score : \n ${Score.curPoints}", Color.BLUE, 20)
-
       if(Score.victory == true){
         window.drawString(totalWidth/2-250, titleHeight/4 + 200, "CONGRATULATIONS !! ", Color.BLUE, 40)
       }
-
       window.setColor(Color.BLUE)
 
 
@@ -41,7 +37,9 @@ class GridRenderer(val gridManager: GridManager, val score : Score) {
 
           window.drawCircle(winX, winY, cellSize)
           val candy: Candy = gridManager.grid(y)(x)
-          window.drawString(winX + cellSize/2, winY + cellSize/2, ""+candy.symbol)
+          if (!candy.isEmpty()) {
+            window.drawTransformedPicture(winX + cellSize / 2, winY + cellSize / 2, 0, 0.2, candy.img)
+          }
 
 
         }
