@@ -3,7 +3,7 @@ import hevs.graphics.FunGraphics
 import java.awt.font.FontRenderContext
 import java.awt.{Color, Font}
 
-class GridRenderer(val gridManager: GridManager) {
+class GridRenderer(val gridManager: GridManager, val score : Score) {
   val gridSize: Int = 400
   val titleHeight: Int = 50
   val scoreWidth: Int = 100
@@ -14,12 +14,23 @@ class GridRenderer(val gridManager: GridManager) {
 
   val cellSize: Int = gridSize / gridManager.size
 
+
+
   def render(): Unit = {
     window.frontBuffer.synchronized({
       window.clear()
 
       window.drawString(totalWidth/2-75, titleHeight/2+20, "ISCrush", Color.BLUE, 40)
+
+
+      window.drawString(totalWidth/2 + 140, titleHeight/2+20, s"Score : \n ${Score.curPoints}", Color.BLUE, 20)
+
+      if(Score.victory == true){
+        window.drawString(totalWidth/2-250, titleHeight/4 + 200, "CONGRATULATIONS !! ", Color.BLUE, 40)
+      }
+
       window.setColor(Color.BLUE)
+
 
       for (y: Int <- 0 until gridManager.size) {
         for (x: Int <- 0 until gridManager.size) {
@@ -31,6 +42,8 @@ class GridRenderer(val gridManager: GridManager) {
           window.drawCircle(winX, winY, cellSize)
           val candy: Candy = gridManager.grid(y)(x)
           window.drawString(winX + cellSize/2, winY + cellSize/2, ""+candy.symbol)
+
+
         }
       }
     })

@@ -12,25 +12,25 @@ object ISCrush extends App{
   def processInput(): Unit = {
     gridOne.swapCandies(swap._1, swap._2, swap._3)
     gridOne.simplifyGrid()
+    Score.comboWin()
     gridOne.displayGrid()
     inputReady = false
   }
 
   def mainLoop(): Unit = {
+    Score.combo = false
     gridOne.displayGrid()
     while(running) {
       if (inputReady) {
         processInput()
       }
-
       renderer.render()
     }
   }
 
   Candy.init()
 
-  var gridOne: GridManager = new GridManager(6)
-  var renderer: GridRenderer = new GridRenderer(gridOne)
+
 
   var inputHandler: InputHandler = _
 
@@ -38,10 +38,13 @@ object ISCrush extends App{
   println(" (0) in the console (with keyboard)")
   println(" (1) in a window (with mouse)")
   var inputChoice: Int = Input.readInt()
+  var gridOne: GridManager = new GridManager(9)
+  var renderer: GridRenderer = new GridRenderer(gridOne, score)
+  var score: Score = new Score(400)
   inputChoice match {
     case 0 => inputHandler = new ConsoleManager()
     case 1 => {
-      val mouseManager: MouseManager = new MouseManager(renderer)
+      val mouseManager: MouseManager = new MouseManager(renderer, score)
       renderer.window.addMouseListener(mouseManager)
       inputHandler = mouseManager
     }

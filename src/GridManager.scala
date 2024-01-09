@@ -43,7 +43,7 @@ class GridManager(val size : Int) {
    *
    * @return true if at least one combo was found, false otherwise
    */
-  private def processCombos(): Boolean = {
+   def processCombos(): Boolean = {
     copyGrid()
     var hasChanged: Boolean = false
 
@@ -80,6 +80,7 @@ class GridManager(val size : Int) {
           if (count >= 3) {
             simplifyCombo(x, y - count, x, y - 1)
             hasChanged = true
+
           }
           count = 1
           symbol = candy.symbol
@@ -88,6 +89,7 @@ class GridManager(val size : Int) {
       if (count >= 3) {
         simplifyCombo(x, size - count, x, size - 1)
         hasChanged = true
+
       }
     }
 
@@ -104,10 +106,11 @@ class GridManager(val size : Int) {
    * @param x2 X position of bottom right corner
    * @param y2 Y position of bottom right corner
    */
-  private def simplifyCombo(x1: Int, y1: Int, x2: Int, y2: Int): Unit = {
+   def simplifyCombo(x1: Int, y1: Int, x2: Int, y2: Int): Unit = {
     for (y: Int <- y1 to y2) {
       for (x: Int <- x1 to x2) {
         tmpGrid(y)(x) = Candy.empty()
+        Score.combo = true
       }
     }
   }
@@ -163,6 +166,7 @@ class GridManager(val size : Int) {
    */
   def simplifyGrid(): Unit = {
     var changed: Boolean = false
+
 
     do {
       changed = processCombos()

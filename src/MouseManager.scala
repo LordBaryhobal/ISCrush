@@ -1,6 +1,6 @@
 import java.awt.event.{MouseEvent, MouseListener}
 
-class MouseManager(val renderer: GridRenderer) extends MouseListener with InputHandler {
+class MouseManager(val renderer: GridRenderer, val score : Score) extends MouseListener with InputHandler {
   private var startPos: (Int, Int) = (0, 0)
   private var endPos: (Int, Int) = (0, 0)
   private var direction: Int = 0
