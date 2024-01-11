@@ -9,7 +9,7 @@ class MouseManager(val renderer: GridRenderer, val score : Score) extends MouseL
     val winX: Int = e.getX
     val winY: Int = e.getY
 
-    startPos = ISCrush.renderer.screenToGrid(winX, winY)
+    startPos = renderer.screenToGrid(winX, winY)
   }
 
   override def mouseReleased(e: MouseEvent): Unit = {

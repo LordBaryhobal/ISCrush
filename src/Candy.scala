@@ -7,6 +7,10 @@ import scala.collection.mutable.ArrayBuffer
  * @param symbol The symbol of the candy type
  */
 class Candy(var symbol : Char, var img : GraphicsBitmap) {
+  var oldPos: Pos = new Pos(0, 0)
+  var pos: Pos = new Pos(0, 0)
+  var hasMoved: Boolean = false
+
   override def toString: String = ""+symbol
 
   def isEmpty(): Boolean = symbol == ' '
@@ -14,9 +18,6 @@ class Candy(var symbol : Char, var img : GraphicsBitmap) {
 
 object Candy extends App{
   var models: ArrayBuffer[(Char,GraphicsBitmap)] = new ArrayBuffer()
-
-
-
 
   def init(): Unit = {
     models = new ArrayBuffer()

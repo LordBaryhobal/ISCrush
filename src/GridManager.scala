@@ -11,7 +11,10 @@ class GridManager(val size : Int) {
   def generateRandomGrid(): Unit = {
     for (i: Int <- 0 until size) {
       for (j: Int <- 0 until size) {
-        grid(i)(j) = randomCandy()
+        val candy: Candy = randomCandy()
+        candy.pos.x = j
+        candy.pos.y = i
+        grid(i)(j) = candy
       }
     }
     simplifyGrid()
@@ -144,9 +147,19 @@ class GridManager(val size : Int) {
         if (grid(y)(x).isEmpty()) {
           moved = true
           for (y2: Int <- y until 0 by -1) {
-            grid(y2)(x) = grid(y2-1)(x)
+            val candy: Candy = grid(y2-1)(x)
+            if (!candy.hasMoved) {
+              candy.oldPos = candy.pos
+              candy.hasMoved = true
+            }
+            candy.pos = new Pos(x, y2)
+            grid(y2)(x) = candy
           }
-          grid(0)(x) = randomCandy()
+          val newCandy: Candy = randomCandy()
+          newCandy.oldPos = new Pos(x, -1)
+          newCandy.pos = new Pos(x, 0)
+          newCandy.hasMoved = true
+          grid(0)(x) = newCandy
         }
       }
     }
@@ -223,18 +236,28 @@ class GridManager(val size : Int) {
     }
 
 
+    val candyA: Candy = grid(y1)(x1)
+    val candyB: Candy = grid(y2)(x2)
 
-    var a : Candy = grid(y2)(x2)
-    grid(y2)(x2) = grid(y1)(x1)
-    grid(y1)(x1) = a
+    candyA.oldPos = candyA.pos
+    candyB.oldPos = candyB.pos
+    candyA.pos = new Pos(x2, y2)
+    candyB.pos = new Pos(x1, y1)
+    candyA.hasMoved = true
+    candyB.hasMoved = true
 
-
+    grid(y1)(x1) = candyB
+    grid(y2)(x2) = candyA
   }
 
-
-
-
-
+  def clearAnimation(): Unit = {
+    for (y: Int <- 0 until size) {
+      for (x: Int <- 0 until size) {
+        val candy: Candy = grid(y)(x)
+        candy.hasMoved = false
+      }
+    }
+  }
 }
 
 object GridManager extends App {

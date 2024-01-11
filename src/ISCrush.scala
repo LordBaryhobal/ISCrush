@@ -10,10 +10,12 @@ object ISCrush extends App{
     inputReady = true
   }
   def processInput(): Unit = {
+    gridOne.clearAnimation()
     gridOne.swapCandies(swap._1, swap._2, swap._3)
     gridOne.simplifyGrid()
     Score.comboWin()
     gridOne.displayGrid()
+    renderer.animationStartTime = System.currentTimeMillis()
     inputReady = false
   }
 

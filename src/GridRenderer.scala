@@ -13,8 +13,8 @@ class GridRenderer(val gridManager: GridManager, val score : Score) {
   val window: FunGraphics = new FunGraphics(totalWidth, totalHeight)
 
   val cellSize: Int = gridSize / gridManager.size
-
-
+  var animationStartTime: Long = 0
+  val ANIMATION_DURATION: Double = 1000
 
   def render(): Unit = {
     window.frontBuffer.synchronized({
@@ -23,20 +23,35 @@ class GridRenderer(val gridManager: GridManager, val score : Score) {
 
       window.setColor(Color.BLUE)
 
+      val curTime: Long = System.currentTimeMillis()
 
       for (y: Int <- 0 until gridManager.size) {
         for (x: Int <- 0 until gridManager.size) {
-          val (winX: Int, winY: Int) = gridToScreen(x, y)
+          val candy: Candy = gridManager.grid(y)(x)
+          var winX: Int = 0
+          var winY: Int = 0
+
+          if (candy.hasMoved) {
+            val (winX1: Int, winY1: Int) = gridToScreen(candy.oldPos.x, candy.oldPos.y)
+            val (winX2: Int, winY2: Int) = gridToScreen(candy.pos.x, candy.pos.y)
+            val r: Double = math.max(0, math.min(1, (curTime - animationStartTime) / ANIMATION_DURATION))
+            winX = math.round((winX2 - winX1) * r + winX1).toInt
+            winY = math.round((winY2 - winY1) * r + winY1).toInt
+
+          } else {
+            val winPos: (Int, Int) = gridToScreen(x, y)
+            winX = winPos._1
+            winY = winPos._2
+          }
 
           //val centerX: Int = winX + cellSize / 2
           //val centerY: Int = winY + cellSize / 2
-          val candy: Candy = gridManager.grid(y)(x)
           if (!candy.isEmpty()) {
             window.drawTransformedPicture(winX + cellSize / 2, winY + cellSize / 2, 0, 0.2, candy.img)
           }
         }
       }
-      if (Score.victory == true) {
+      if (Score.victory) {
         window.drawString(totalWidth / 2 - 250, titleHeight / 4 + 200, "CONGRATULATIONS !! ", Color.BLUE, 40)
       }
 
