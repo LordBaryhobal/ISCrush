@@ -10,8 +10,15 @@ object ISCrush extends App{
     inputReady = true
   }
   def processInput(): Unit = {
+
     gridOne.swapCandies(swap._1, swap._2, swap._3)
-    gridOne.simplifyGrid()
+    println(swap._1, swap._2, swap._3)
+    if(!gridOne.simplifyGrid()){
+      println(swap._1, swap._2, swap._3)
+      gridOne.swapCandies(swap._1, swap._2, swap._3)
+      println("Cannot move candy")
+
+    }
     Score.comboWin()
     gridOne.displayGrid()
     inputReady = false
