@@ -51,7 +51,7 @@ object ISCrush extends App{
   var inputChoice: Int = Input.readInt()
   var gridOne: GridManager = new GridManager(6)
   var renderer: GridRenderer = new GridRenderer(gridOne, score)
-  var score: Score = new Score(400)
+  var score: Score = new Score(20)
   inputChoice match {
     case 0 => inputHandler = new ConsoleManager()
     case 1 => {

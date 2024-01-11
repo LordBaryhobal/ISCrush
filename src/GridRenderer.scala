@@ -1,7 +1,9 @@
 import hevs.graphics.FunGraphics
 import hevs.graphics.utils.GraphicsBitmap
+
 import java.awt.font.FontRenderContext
 import java.awt.{Color, Font}
+import javax.swing.SwingConstants
 
 class GridRenderer(val gridManager: GridManager, val score : Score) {
   val gridSize: Int = 400
@@ -52,11 +54,21 @@ class GridRenderer(val gridManager: GridManager, val score : Score) {
         }
       }
       if (Score.victory) {
-        window.drawString(totalWidth / 2 - 250, titleHeight / 4 + 200, "CONGRATULATIONS !! ", Color.BLUE, 40)
+        window.drawFancyString(totalWidth/2, totalHeight/2,"CONGRATULATIONS !!", color = Color.WHITE, fontSize =  40, halign = SwingConstants.CENTER, valign = SwingConstants.CENTER,outlineColor = Color.BLACK, outlineThickness = 2)
       }
-
-      window.drawString(totalWidth / 2 - 75, titleHeight / 2 + 20, "ISCrush", Color.BLUE, 40)
-      window.drawString(totalWidth / 2 + 140, titleHeight / 2 + 20, s"Score : \n ${Score.curPoints}", Color.BLUE, 20)
+        window.drawFancyString(
+          totalWidth / 2,
+          titleHeight / 2,
+          "ISCrush",
+          color = Color.WHITE,
+          fontSize = 40,
+          halign = SwingConstants.CENTER,
+          valign = SwingConstants.CENTER,
+          outlineColor = Color.BLACK,
+          outlineThickness = 3,
+          fontFamily = "Comic Sans MS"
+      )
+      window.drawString(totalWidth, titleHeight - 50 , s"Score : \n ${Score.curPoints}", color = Color.BLACK, fontSize = 20, halign = SwingConstants.RIGHT, valign = SwingConstants.TOP, fontStyle = Font.BOLD,fontFamily = "Comic Sans MS")
 
     })
 
