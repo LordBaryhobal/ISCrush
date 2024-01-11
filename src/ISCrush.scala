@@ -16,8 +16,6 @@ object ISCrush extends App{
     if(!gridOne.simplifyGrid()){
       println(swap._1, swap._2, swap._3)
       gridOne.swapCandies(swap._1, swap._2, swap._3)
-      println("Cannot move candy")
-
     }
     Score.comboWin()
     gridOne.displayGrid()
@@ -25,7 +23,6 @@ object ISCrush extends App{
   }
 
   def addComboScore(sizeCombo : Int ): Unit = {
-    println(sizeCombo)
     Score.curPoints = Score.curPoints + sizeCombo
   }
 
