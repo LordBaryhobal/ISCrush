@@ -115,10 +115,13 @@ class GridManager(val size : Int) {
     for (y: Int <- y1 to y2) {
       for (x: Int <- x1 to x2) {
         tmpGrid(y)(x) = Candy.empty()
-        Score.combo = true
       }
     }
-  }
+
+     var sizeCombo : Int  = (x2-x1+1)*(y2-y1+1)
+     ISCrush.addComboScore(sizeCombo)
+     Score.combo = true
+   }
 
   /**
    * Makes a copy of the grid in `tmpGrid`

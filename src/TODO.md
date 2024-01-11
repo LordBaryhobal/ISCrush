@@ -1,6 +1,6 @@
 - [x] Score
 - [x] Add error handling and boundaries
-- [ ] Images
+- [x] Images
 - [ ] Complete documentation
 - [ ] Center title
 - [X] Prevent moving if doesn't combo

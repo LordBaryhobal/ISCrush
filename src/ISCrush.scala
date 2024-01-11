@@ -24,8 +24,14 @@ object ISCrush extends App{
     inputReady = false
   }
 
+  def addComboScore(sizeCombo : Int ): Unit = {
+    println(sizeCombo)
+    Score.curPoints = Score.curPoints + sizeCombo
+  }
+
   def mainLoop(): Unit = {
     Score.combo = false
+    Score.curPoints = 0
     gridOne.displayGrid()
     while(running) {
       if (inputReady) {
