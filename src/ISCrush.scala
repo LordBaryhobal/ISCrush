@@ -12,15 +12,24 @@ object ISCrush extends App{
   def processInput(): Unit = {
     gridOne.clearAnimation()
     gridOne.swapCandies(swap._1, swap._2, swap._3)
-    gridOne.simplifyGrid()
+    println(swap._1, swap._2, swap._3)
+    if(!gridOne.simplifyGrid()){
+      println(swap._1, swap._2, swap._3)
+      gridOne.swapCandies(swap._1, swap._2, swap._3)
+    }
     Score.comboWin()
     gridOne.displayGrid()
     renderer.animationStartTime = System.currentTimeMillis()
     inputReady = false
   }
 
+  def addComboScore(sizeCombo : Int ): Unit = {
+    Score.curPoints = Score.curPoints + sizeCombo
+  }
+
   def mainLoop(): Unit = {
     Score.combo = false
+    Score.curPoints = 0
     gridOne.displayGrid()
     while(running) {
       if (inputReady) {

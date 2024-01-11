@@ -116,10 +116,13 @@ class GridManager(val size : Int) {
     for (y: Int <- y1 to y2) {
       for (x: Int <- x1 to x2) {
         tmpGrid(y)(x) = Candy.empty()
-        Score.combo = true
       }
     }
-  }
+
+     var sizeCombo : Int  = (x2-x1+1)*(y2-y1+1)
+     ISCrush.addComboScore(sizeCombo)
+     Score.combo = true
+   }
 
   /**
    * Makes a copy of the grid in `tmpGrid`
@@ -133,7 +136,6 @@ class GridManager(val size : Int) {
       }
     }
   }
-
   /**
    * Moves down columns with holes
    *
@@ -180,60 +182,64 @@ class GridManager(val size : Int) {
   /**
    * Simplifies all combos and moves down columns until there is no combo
    */
-  def simplifyGrid(): Unit = {
+  def simplifyGrid(): Boolean = {
     var changed: Boolean = false
-
+    var hasChanged: Boolean = false
 
     do {
       changed = processCombos()
+      if (changed) hasChanged = true
       moveDownUntilFull()
     } while (changed)
+    return(hasChanged)
   }
 
   def swapCandies(x : Int, y : Int, dir : Int): Unit = {
-    var x1 : Int = x
-    var y1 : Int = y
 
-    var x2 : Int = 0
-    var y2 : Int = 0
+      var x1: Int = x
+      var y1: Int = y
 
-    dir match {
-      case 3 => {
-        x2 = x1
-        y2 = y1 - 1
+      var x2: Int = 0
+      var y2: Int = 0
+
+      dir match {
+        case 3 => {
+          x2 = x1
+          y2 = y1 - 1
+        }
+        case 2 => {
+          x2 = x1 - 1
+          y2 = y1
+        }
+        case 1 => {
+          x2 = x1
+          y2 = y1 + 1
+        }
+        case 0 => {
+          x2 = x1 + 1
+          y2 = y1
+        }
+        case _ => {
+          return
+        }
       }
-      case 2 => {
-        x2 = x1 -1
-        y2 = y1
-      }
-      case 1 => {
-        x2 = x1
-        y2 = y1 + 1
-      }
-      case 0 => {
-        x2 = x1 + 1
-        y2 = y1
-      }
-      case _ => {
+
+
+      if ((x1 >= ISCrush.gridOne.size) || (x2 >= ISCrush.gridOne.size)) {
         return
       }
-    }
 
-    if((x1 >= ISCrush.gridOne.size) || (x2 >= ISCrush.gridOne.size)){
-      return
-    }
+      if ((x1 < 0) || (x2 < 0)) {
+        return
+      }
 
-    if ((x1 < 0) || (x2 < 0)) {
-      return
-    }
+      if ((y1 < 0) || (y2 < 0)) {
+        return
+      }
 
-    if ((y1 < 0) || (y2 < 0)) {
-      return
-    }
-
-    if ((y1 >= ISCrush.gridOne.size) || (y2 >= ISCrush.gridOne.size)) {
-      return
-    }
+      if ((y1 >= ISCrush.gridOne.size) || (y2 >= ISCrush.gridOne.size)) {
+        return
+      }
 
 
     val candyA: Candy = grid(y1)(x1)
