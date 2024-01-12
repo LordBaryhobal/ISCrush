@@ -5,6 +5,7 @@ object ISCrush extends App{
   private var inputReady: Boolean = false
   private var swap: (Int, Int, Int) = (0, 0, 0)
 
+
   def setInput(x: Int, y: Int, dir: Int): Unit = {
     swap = (x, y, dir)
     inputReady = true
@@ -42,14 +43,14 @@ object ISCrush extends App{
   Candy.init()
 
 
-
   var inputHandler: InputHandler = _
 
   println("How would you like to play ?")
   println(" (0) in the console (with keyboard)")
   println(" (1) in a window (with mouse)")
   var inputChoice: Int = Input.readInt()
-  var gridOne: GridManager = new GridManager(6)
+
+  var gridOne: GridManager = new GridManager(Candy.SizeAndNum._1)
   var renderer: GridRenderer = new GridRenderer(gridOne, score)
   var score: Score = new Score(20)
   inputChoice match {
