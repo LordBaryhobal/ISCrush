@@ -3,24 +3,35 @@ import scala.collection.mutable
 object ISCrush extends App{
   var running : Boolean = true
   private var inputReady: Boolean = false
+  private var processingInput: Boolean = false
   private var swap: (Int, Int, Int) = (0, 0, 0)
 
   def setInput(x: Int, y: Int, dir: Int): Unit = {
     swap = (x, y, dir)
     inputReady = true
   }
-  def processInput(): Unit = {
+
+  def playAnimation(): Unit = {
+    renderer.animationStartTime = System.currentTimeMillis()
+    Thread.sleep(renderer.ANIMATION_DURATION)
     gridOne.clearAnimation()
+  }
+
+  /**
+   * Processes an input, checks for and simplifies combos, refilling the grid as needed
+   */
+  def processInput(): Unit = {
+    processingInput = true
     gridOne.swapCandies(swap._1, swap._2, swap._3)
-    println(swap._1, swap._2, swap._3)
+    playAnimation()
     if(!gridOne.simplifyGrid()){
-      println(swap._1, swap._2, swap._3)
       gridOne.swapCandies(swap._1, swap._2, swap._3)
+      playAnimation()
     }
     Score.comboWin()
     gridOne.displayGrid()
-    renderer.animationStartTime = System.currentTimeMillis()
     inputReady = false
+    processingInput = false
   }
 
   def addComboScore(sizeCombo : Int ): Unit = {
@@ -32,8 +43,8 @@ object ISCrush extends App{
     Score.curPoints = 0
     gridOne.displayGrid()
     while(running) {
-      if (inputReady) {
-        processInput()
+      if (inputReady && !processingInput) {
+        new Thread(() => processInput()).start()
       }
       renderer.render()
     }

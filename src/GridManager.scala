@@ -1,9 +1,11 @@
 import hevs.graphics.utils.GraphicsBitmap
 
 class GridManager(val size : Int) {
+  var init: Boolean = false
   var grid: Array[Array[Candy]] = Array.ofDim(size, size)
   var tmpGrid: Array[Array[Candy]] = Array.ofDim(size, size)
   generateRandomGrid()
+  init = true
 
   /**
    * Fills the grid with random candies
@@ -112,17 +114,19 @@ class GridManager(val size : Int) {
    * @param x2 X position of bottom right corner
    * @param y2 Y position of bottom right corner
    */
-   def simplifyCombo(x1: Int, y1: Int, x2: Int, y2: Int): Unit = {
+  private def simplifyCombo(x1: Int, y1: Int, x2: Int, y2: Int): Unit = {
     for (y: Int <- y1 to y2) {
       for (x: Int <- x1 to x2) {
         tmpGrid(y)(x) = Candy.empty()
       }
     }
 
-     var sizeCombo : Int  = (x2-x1+1)*(y2-y1+1)
-     ISCrush.addComboScore(sizeCombo)
-     Score.combo = true
-   }
+    if (init) {
+      val sizeCombo : Int = (x2-x1+1)*(y2-y1+1)
+      ISCrush.addComboScore(sizeCombo)
+      Score.combo = true
+    }
+  }
 
   /**
    * Makes a copy of the grid in `tmpGrid`
@@ -150,7 +154,7 @@ class GridManager(val size : Int) {
           moved = true
           for (y2: Int <- y until 0 by -1) {
             val candy: Candy = grid(y2-1)(x)
-            if (!candy.hasMoved) {
+            if (init && !candy.hasMoved) {
               candy.oldPos = candy.pos
               candy.hasMoved = true
             }
@@ -158,9 +162,11 @@ class GridManager(val size : Int) {
             grid(y2)(x) = candy
           }
           val newCandy: Candy = randomCandy()
-          newCandy.oldPos = new Pos(x, -1)
+          if (init) {
+            newCandy.oldPos = new Pos(x, -1)
+            newCandy.hasMoved = true
+          }
           newCandy.pos = new Pos(x, 0)
-          newCandy.hasMoved = true
           grid(0)(x) = newCandy
         }
       }
@@ -171,7 +177,7 @@ class GridManager(val size : Int) {
   /**
    * Moves down all columns with hole until the grid is full
    */
-  private def moveDownUntilFull(): Unit = {
+  def moveDownUntilFull(): Unit = {
     var moved: Boolean = true
 
     while (moved) {
@@ -190,8 +196,11 @@ class GridManager(val size : Int) {
       changed = processCombos()
       if (changed) hasChanged = true
       moveDownUntilFull()
+      if (init && changed) {
+        ISCrush.playAnimation()
+      }
     } while (changed)
-    return(hasChanged)
+    return hasChanged
   }
 
   def swapCandies(x : Int, y : Int, dir : Int): Unit = {
@@ -245,12 +254,14 @@ class GridManager(val size : Int) {
     val candyA: Candy = grid(y1)(x1)
     val candyB: Candy = grid(y2)(x2)
 
-    candyA.oldPos = candyA.pos
-    candyB.oldPos = candyB.pos
+    if (init) {
+      candyA.oldPos = candyA.pos
+      candyB.oldPos = candyB.pos
+      candyA.hasMoved = true
+      candyB.hasMoved = true
+    }
     candyA.pos = new Pos(x2, y2)
     candyB.pos = new Pos(x1, y1)
-    candyA.hasMoved = true
-    candyB.hasMoved = true
 
     grid(y1)(x1) = candyB
     grid(y2)(x2) = candyA

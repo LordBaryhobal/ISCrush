@@ -14,7 +14,7 @@ class GridRenderer(val gridManager: GridManager, val score : Score) {
 
   val cellSize: Int = gridSize / gridManager.size
   var animationStartTime: Long = 0
-  val ANIMATION_DURATION: Double = 1000
+  val ANIMATION_DURATION: Long = 500
 
   def render(): Unit = {
     window.frontBuffer.synchronized({
@@ -34,7 +34,7 @@ class GridRenderer(val gridManager: GridManager, val score : Score) {
           if (candy.hasMoved) {
             val (winX1: Int, winY1: Int) = gridToScreen(candy.oldPos.x, candy.oldPos.y)
             val (winX2: Int, winY2: Int) = gridToScreen(candy.pos.x, candy.pos.y)
-            val r: Double = math.max(0, math.min(1, (curTime - animationStartTime) / ANIMATION_DURATION))
+            val r: Double = math.max(0, math.min(1, (curTime - animationStartTime) / ANIMATION_DURATION.toDouble))
             winX = math.round((winX2 - winX1) * r + winX1).toInt
             winY = math.round((winY2 - winY1) * r + winY1).toInt
 
