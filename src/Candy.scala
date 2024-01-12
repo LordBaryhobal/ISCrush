@@ -13,7 +13,7 @@ class Candy(var symbol : Char, var img : GraphicsBitmap) {
 
   override def toString: String = ""+symbol
 
-  def isEmpty(): Boolean = symbol == ' '
+  def isEmpty: Boolean = symbol == ' '
 }
 
 object Candy extends App{

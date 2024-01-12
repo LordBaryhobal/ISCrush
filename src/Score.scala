@@ -8,7 +8,7 @@ object Score {
 
 
   def comboWin(): Unit = {
-    if(combo == true){
+    if(combo){
       println(s"Your current score is : $curPoints")
     }
     if(curPoints >= ISCrush.score.finalPoints){

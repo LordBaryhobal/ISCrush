@@ -18,7 +18,7 @@ class MouseManager(val renderer: GridRenderer, val score : Score) extends MouseL
 
     endPos = renderer.screenToGrid(winX, winY)
     val angle : Double = math.atan2(endPos._2 - startPos._2, endPos._1 - startPos._1)
-    direction = math.round(angle*2/math.Pi + 4).toInt%4
+    direction = math.round(angle * 2 / math.Pi + 4).toInt % 4
 
     ISCrush.setInput(startPos._1, startPos._2, direction)
   }

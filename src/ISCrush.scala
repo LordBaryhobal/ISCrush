@@ -1,11 +1,11 @@
-import scala.collection.mutable
-
-object ISCrush extends App{
+object ISCrush {
   var running : Boolean = true
   private var inputReady: Boolean = false
   private var processingInput: Boolean = false
   private var swap: (Int, Int, Int) = (0, 0, 0)
-
+  private var gridOne: GridManager = _
+  private var renderer: GridRenderer = _
+  var score: Score = _
 
   def setInput(x: Int, y: Int, dir: Int): Unit = {
     swap = (x, y, dir)
@@ -21,7 +21,7 @@ object ISCrush extends App{
   /**
    * Processes an input, checks for and simplifies combos, refilling the grid as needed
    */
-  def processInput(): Unit = {
+  private def processInput(): Unit = {
     processingInput = true
     gridOne.swapCandies(swap._1, swap._2, swap._3)
     playAnimation()
@@ -39,7 +39,7 @@ object ISCrush extends App{
     Score.curPoints = Score.curPoints + sizeCombo
   }
 
-  def mainLoop(): Unit = {
+  private def mainLoop(): Unit = {
     Score.combo = false
     Score.curPoints = 0
     gridOne.displayGrid()
@@ -51,27 +51,32 @@ object ISCrush extends App{
     }
   }
 
-  Candy.init()
+  def main(args: Array[String]): Unit = {
+    Candy.init()
 
+    var inputHandler: InputHandler = null
 
-  var inputHandler: InputHandler = _
+    println("How would you like to play ?")
+    println(" (0) in the console (with keyboard)")
+    println(" (1) in a window (with mouse)")
+    val inputChoice: Int = Input.readInt()
 
-  println("How would you like to play ?")
-  println(" (0) in the console (with keyboard)")
-  println(" (1) in a window (with mouse)")
-  var inputChoice: Int = Input.readInt()
-
-  var gridOne: GridManager = new GridManager(Candy.SizeAndNum._1)
-  var renderer: GridRenderer = new GridRenderer(gridOne, score)
-  var score: Score = new Score(20)
-  inputChoice match {
-    case 0 => inputHandler = new ConsoleManager()
-    case 1 => {
-      val mouseManager: MouseManager = new MouseManager(renderer, score)
-      renderer.window.addMouseListener(mouseManager)
-      inputHandler = mouseManager
+    gridOne = new GridManager(Candy.SizeAndNum._1)
+    renderer = new GridRenderer(gridOne, score)
+    score = new Score(20)
+    inputChoice match {
+      case 0 => inputHandler = new ConsoleManager()
+      case 1 => {
+        val mouseManager: MouseManager = new MouseManager(renderer, score)
+        renderer.window.addMouseListener(mouseManager)
+        inputHandler = mouseManager
+      }
+      case _ => {
+        println("Invalid value")
+        return
+      }
     }
-  }
 
-  mainLoop()
+    mainLoop()
+  }
 }

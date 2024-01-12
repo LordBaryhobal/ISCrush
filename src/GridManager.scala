@@ -3,7 +3,7 @@ import hevs.graphics.utils.GraphicsBitmap
 class GridManager(val size : Int) {
   var init: Boolean = false
   var grid: Array[Array[Candy]] = Array.ofDim(size, size)
-  var tmpGrid: Array[Array[Candy]] = Array.ofDim(size, size)
+  private var tmpGrid: Array[Array[Candy]] = Array.ofDim(size, size)
   generateRandomGrid()
   init = true
 
@@ -59,7 +59,7 @@ class GridManager(val size : Int) {
       var count: Int = 0
       var symbol: Char = 0
       for (x: Int <- 0 until size) {
-        var candy: Candy = grid(y)(x)
+        val candy: Candy = grid(y)(x)
         if (candy.symbol == symbol) {
           count += 1
         } else {
@@ -81,7 +81,7 @@ class GridManager(val size : Int) {
       var count: Int = 0
       var symbol: Char = 0
       for (y: Int <- 0 until size) {
-        var candy: Candy = grid(y)(x)
+        val candy: Candy = grid(y)(x)
         if (candy.symbol == symbol) {
           count += 1
         } else {
@@ -150,7 +150,7 @@ class GridManager(val size : Int) {
 
     for (y: Int <- size - 1 to 0 by -1) {
       for (x: Int <- 0 until size) {
-        if (grid(y)(x).isEmpty()) {
+        if (grid(y)(x).isEmpty) {
           moved = true
           for (y2: Int <- y until 0 by -1) {
             val candy: Candy = grid(y2-1)(x)
@@ -204,51 +204,49 @@ class GridManager(val size : Int) {
   }
 
   def swapCandies(x : Int, y : Int, dir : Int): Unit = {
+    val x1: Int = x
+    val y1: Int = y
 
-      var x1: Int = x
-      var y1: Int = y
+    var x2: Int = 0
+    var y2: Int = 0
 
-      var x2: Int = 0
-      var y2: Int = 0
-
-      dir match {
-        case 3 => {
-          x2 = x1
-          y2 = y1 - 1
-        }
-        case 2 => {
-          x2 = x1 - 1
-          y2 = y1
-        }
-        case 1 => {
-          x2 = x1
-          y2 = y1 + 1
-        }
-        case 0 => {
-          x2 = x1 + 1
-          y2 = y1
-        }
-        case _ => {
-          return
-        }
+    dir match {
+      case 3 => {
+        x2 = x1
+        y2 = y1 - 1
       }
-
-
-      if ((x1 >= ISCrush.gridOne.size) || (x2 >= ISCrush.gridOne.size)) {
+      case 2 => {
+        x2 = x1 - 1
+        y2 = y1
+      }
+      case 1 => {
+        x2 = x1
+        y2 = y1 + 1
+      }
+      case 0 => {
+        x2 = x1 + 1
+        y2 = y1
+      }
+      case _ => {
         return
       }
+    }
 
-      if ((x1 < 0) || (x2 < 0)) {
-        return
-      }
+    if ((x1 >= size) || (x2 >= size)) {
+      return
+    }
 
-      if ((y1 < 0) || (y2 < 0)) {
-        return
-      }
+    if ((x1 < 0) || (x2 < 0)) {
+      return
+    }
 
-      if ((y1 >= ISCrush.gridOne.size) || (y2 >= ISCrush.gridOne.size)) {
-        return
-      }
+    if ((y1 < 0) || (y2 < 0)) {
+      return
+    }
+
+    if ((y1 >= size) || (y2 >= size)) {
+      return
+    }
 
 
     val candyA: Candy = grid(y1)(x1)
@@ -276,16 +274,3 @@ class GridManager(val size : Int) {
     }
   }
 }
-
-object GridManager extends App {
-  Candy.init()
-  var gridOne : GridManager = new GridManager(12)
-  gridOne.displayGrid()
-  val simplified: Boolean = gridOne.processCombos()
-  println(s"Combos ? $simplified")
-  gridOne.displayGrid()
-  println("-----------")
-  gridOne.moveDownUntilFull()
-  gridOne.displayGrid()
-}
-
