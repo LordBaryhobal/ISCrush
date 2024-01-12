@@ -2,7 +2,7 @@
 - [x] Add error handling and boundaries
 - [x] Images
 - [ ] Complete documentation
-- [ ] Center title
+- [x] Center title
 - [X] Prevent moving if doesn't combo
-- [ ] Animations
+- [x] Animations
 - [ ] Dark theme
