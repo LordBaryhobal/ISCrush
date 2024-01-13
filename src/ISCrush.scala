@@ -49,6 +49,7 @@ object ISCrush {
       }
       renderer.render()
     }
+    renderer.render()
   }
 
   def main(args: Array[String]): Unit = {
@@ -63,7 +64,7 @@ object ISCrush {
 
     gridOne = new GridManager(Candy.SizeAndNum._1)
     renderer = new GridRenderer(gridOne, score)
-    score = new Score(20)
+    score = new Score(100)
     inputChoice match {
       case 0 => inputHandler = new ConsoleManager()
       case 1 => {

@@ -5,15 +5,14 @@ import javax.swing.SwingConstants
 
 class GridRenderer(val gridManager: GridManager, val score : Score) {
   private val FPS: Int = 30
-  private val gridSize: Int = 400
-  private val titleHeight: Int = 50
-  private val scoreWidth: Int = 100
+  private val gridSize: Int = 600
+  private val titleHeight: Int = 100
 
-  private val totalWidth: Int = gridSize + scoreWidth
+  private val totalWidth: Int = gridSize
   private val totalHeight: Int = gridSize + titleHeight
-  val window: FunGraphics = new FunGraphics(totalWidth, totalHeight)
+  val window: FunGraphics = new FunGraphics(totalWidth, totalHeight, "ISCrush")
 
-  private val cellSize: Int = gridSize / gridManager.size
+  private val cellSize: Double = gridSize / gridManager.size.toDouble
   var animationStartTime: Long = 0
   val ANIMATION_DURATION: Long = 500
 
@@ -26,24 +25,27 @@ class GridRenderer(val gridManager: GridManager, val score : Score) {
       for (y: Int <- 0 until gridManager.size) {
         for (x: Int <- 0 until gridManager.size) {
           val candy: Candy = gridManager.grid(y)(x)
-          var winX: Int = 0
-          var winY: Int = 0
+          var winX: Double = 0
+          var winY: Double = 0
 
           if (candy.hasMoved) {
-            val (winX1: Int, winY1: Int) = gridToScreen(candy.oldPos.x, candy.oldPos.y)
-            val (winX2: Int, winY2: Int) = gridToScreen(candy.pos.x, candy.pos.y)
+            val (winX1: Double, winY1: Double) = gridToScreen(candy.oldPos.x, candy.oldPos.y)
+            val (winX2: Double, winY2: Double) = gridToScreen(candy.pos.x, candy.pos.y)
             val r: Double = math.max(0, math.min(1, (curTime - animationStartTime) / ANIMATION_DURATION.toDouble))
-            winX = math.round((winX2 - winX1) * r + winX1).toInt
-            winY = math.round((winY2 - winY1) * r + winY1).toInt
+            winX = (winX2 - winX1) * r + winX1
+            winY = (winY2 - winY1) * r + winY1
 
           } else {
-            val winPos: (Int, Int) = gridToScreen(x, y)
+            val winPos: (Double, Double) = gridToScreen(x, y)
             winX = winPos._1
             winY = winPos._2
           }
 
           if (!candy.isEmpty) {
-            window.drawTransformedPicture(winX + cellSize / 2, winY + cellSize / 2, 0, 0.2, candy.img)
+            val scale: Double = cellSize / math.max(candy.img.getWidth, candy.img.getHeight)
+            val cx: Int = math.ceil(winX + cellSize / 2).toInt
+            val cy: Int = math.ceil(winY + cellSize / 2).toInt
+            window.drawTransformedPicture(cx, cy, 0, scale, candy.img)
           }
         }
       }
@@ -57,7 +59,7 @@ class GridRenderer(val gridManager: GridManager, val score : Score) {
           halign = SwingConstants.CENTER,
           valign = SwingConstants.CENTER,
           outlineColor = Color.BLACK,
-          outlineThickness = 2
+          outlineThickness = 4
         )
       }
 
@@ -74,8 +76,8 @@ class GridRenderer(val gridManager: GridManager, val score : Score) {
         fontFamily = "Comic Sans MS"
       )
       window.drawString(
-        totalWidth,
-        titleHeight - 50 ,
+        totalWidth-10,
+        10,
         s"Score : \n ${Score.curPoints}",
         color = Color.BLACK,
         fontSize = 20,
@@ -84,21 +86,20 @@ class GridRenderer(val gridManager: GridManager, val score : Score) {
         fontStyle = Font.BOLD,
         fontFamily = "Comic Sans MS"
       )
-
     })
 
     window.syncGameLogic(FPS)
   }
 
-  def gridToScreen(x: Int, y: Int): (Int, Int) = {
-    val winX: Int = cellSize * x
-    val winY: Int = cellSize * y + titleHeight
+  def gridToScreen(x: Int, y: Int): (Double, Double) = {
+    val winX: Double = cellSize * x
+    val winY: Double = cellSize * y + titleHeight
     return (winX, winY)
   }
 
-  def screenToGrid(winX: Int, winY: Int): (Int, Int) = {
-    val x: Int = math.floor(winX.toDouble / cellSize).toInt
-    val y: Int = math.floor((winY.toDouble - titleHeight) / cellSize).toInt
+  def screenToGrid(winX: Double, winY: Double): (Int, Int) = {
+    val x: Int = math.floor(winX / cellSize).toInt
+    val y: Int = math.floor((winY - titleHeight) / cellSize).toInt
     return (x, y)
   }
 }
