@@ -1,3 +1,5 @@
+import hevs.utils.Input
+
 /**
  * Class which lets the player play directly in the console
  */

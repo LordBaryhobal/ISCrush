@@ -124,8 +124,8 @@ class GridRenderer(val gridManager: GridManager) {
   /**
    * Converts the coordinates of the window to the coordinate of the grid
    *
-   * @param x X position in the window
-   * @param y Y position in the window
+   * @param winX X position in the window
+   * @param winY Y position in the window
    * @return a tuple representing the position in grid coordinates
    */
   def screenToGrid(winX: Double, winY: Double): (Int, Int) = {

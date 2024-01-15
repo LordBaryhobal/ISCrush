@@ -1,19 +1,19 @@
 import java.net.URL
-import javax.sound.sampled.{AudioInputStream, AudioSystem, Clip, Control, FloatControl}
+import javax.sound.sampled.{AudioInputStream, AudioSystem, Clip, FloatControl}
 
 /**
  * Simple class to manage audio clips
  * @param path path of the sound resource
  */
 class Audio(val path: String, val volume: Float = 1.0f) {
-  var audioClip: Clip = _
+  private var audioClip: Clip = _
 
-  val url: URL = classOf[Audio].getResource(path)
-  val audioStream: AudioInputStream = AudioSystem.getAudioInputStream(url)
+  private val url: URL = classOf[Audio].getResource(path)
+  private val audioStream: AudioInputStream = AudioSystem.getAudioInputStream(url)
 
   audioClip = AudioSystem.getClip
   audioClip.open(audioStream)
-  val volumeControl: FloatControl = audioClip.getControl(FloatControl.Type.MASTER_GAIN).asInstanceOf[FloatControl]
+  private val volumeControl: FloatControl = audioClip.getControl(FloatControl.Type.MASTER_GAIN).asInstanceOf[FloatControl]
   setVolume(volume)
 
   /**

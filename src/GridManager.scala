@@ -8,7 +8,7 @@ import hevs.graphics.utils.GraphicsBitmap
  * @param numberOfTeachers the number of different teachers
  */
 class GridManager(val size: Int, val numberOfTeachers: Int) {
-  var init: Boolean = false
+  private var init: Boolean = false
   var grid: Array[Array[Candy]] = Array.ofDim(size, size)
   private var tmpGrid: Array[Array[Candy]] = Array.ofDim(size, size)
   generateRandomGrid()
@@ -17,7 +17,7 @@ class GridManager(val size: Int, val numberOfTeachers: Int) {
   /**
    * Fills the grid with random candies
    */
-  def generateRandomGrid(): Unit = {
+  private def generateRandomGrid(): Unit = {
     for (i: Int <- 0 until size) {
       for (j: Int <- 0 until size) {
         val candy: Candy = randomCandy()
@@ -46,7 +46,7 @@ class GridManager(val size: Int, val numberOfTeachers: Int) {
    *
    * @return The random candy
    */
-  def randomCandy(): Candy = {
+  private def randomCandy(): Candy = {
     val randomLetter = util.Random.nextInt(math.min(numberOfTeachers, Candy.models.length))
     val (char : Char, img : GraphicsBitmap, audio : String) = Candy.models(randomLetter)
     val candy : Candy = new Candy(char, img, audio)
@@ -58,7 +58,7 @@ class GridManager(val size: Int, val numberOfTeachers: Int) {
    *
    * @return true if at least one combo was found, false otherwise
    */
-   def processCombos(): Boolean = {
+   private def processCombos(): Boolean = {
     copyGrid()
     var hasChanged: Boolean = false
 
@@ -231,7 +231,7 @@ class GridManager(val size: Int, val numberOfTeachers: Int) {
   /**
    * Moves down all columns with hole until the grid is full
    */
-  def moveDownUntilFull(): Unit = {
+  private def moveDownUntilFull(): Unit = {
     var moved: Boolean = true
 
     while (moved) {

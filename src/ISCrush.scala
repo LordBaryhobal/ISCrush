@@ -1,3 +1,5 @@
+import hevs.utils.Input
+
 object ISCrush {
   var running : Boolean = true
   private var inputReady: Boolean = false
@@ -54,7 +56,7 @@ object ISCrush {
     renderer.render()
   }
 
-  def chooseDifficulty(): (Int, Int) = {
+  private def chooseDifficulty(): (Int, Int) = {
     println("Choose the size of your grid (> 2) : ")
     val gridSize = math.max(3, Input.readInt())
     println(s"Choose the number of teachers (> 1 && <= ${Candy.models.length}) : ")

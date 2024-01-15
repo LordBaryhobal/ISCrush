@@ -1,7 +1,7 @@
 import scala.collection.immutable.HashMap
 
 object AudioManager {
-  val audios: Map[String, Audio] = HashMap(
+  private val audios: Map[String, Audio] = HashMap(
     "swap" -> new Audio("/res/sound/swap.wav"),
     "feedback" -> new Audio("/res/sound/feedback.wav"),
     "hello" -> new Audio("/res/sound/hello.wav"),

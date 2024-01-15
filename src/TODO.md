@@ -5,4 +5,3 @@
 - [x] Center title
 - [X] Prevent moving if doesn't combo
 - [x] Animations
-- [ ] Dark theme
