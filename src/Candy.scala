@@ -20,18 +20,18 @@ class Candy(var symbol : Char, var img : GraphicsBitmap, var audio : Audio) {
 
 object Candy {
   var models: Array[(Char,GraphicsBitmap,Audio)] = Array(
-    ('A', new GraphicsBitmap("/res/candies/fauchere.jpg"), new Audio("/res/sound/clap.wav")),
-    ('B', new GraphicsBitmap("/res/candies/jacquemet.jpg"), new Audio("/res/sound/clap.wav")),
-    ('C', new GraphicsBitmap("/res/candies/lafargue.jpg"), new Audio("/res/sound/clap.wav")),
-    ('D', new GraphicsBitmap("/res/candies/mudry.jpg"), new Audio("/res/sound/clap.wav")),
-    ('E', new GraphicsBitmap("/res/candies/zahno.jpg"), new Audio("/res/sound/clap.wav")),
+    ('A', new GraphicsBitmap("/res/candies/fauchere.jpg"), new Audio("/res/sound/hello.wav")),
+    ('B', new GraphicsBitmap("/res/candies/jacquemet.jpg"), new Audio("/res/sound/starwars.wav")),
+    ('C', new GraphicsBitmap("/res/candies/lafargue.jpg"), new Audio("/res/sound/feedback.wav")),
+    ('D', new GraphicsBitmap("/res/candies/mudry.jpg"), new Audio("/res/sound/scala.wav")),
+    ('E', new GraphicsBitmap("/res/candies/zahno.jpg"), new Audio("/res/sound/kru.wav")),
   )
 
   /**
    * Create an empty candy
    */
   def empty(): Candy = {
-    return new Candy(' ', new GraphicsBitmap("/res/candies/fauchere.jpg"),  new Audio("/res/sound/clap.wav"))
+    return new Candy(' ', new GraphicsBitmap("/res/candies/fauchere.jpg"),  new Audio("/res/sound/kru.wav"))
   }
 
   object BonusType {

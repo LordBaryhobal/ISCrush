@@ -90,7 +90,7 @@ object ISCrush {
         return
       }
     }
-    audio.play()
+    //audio.play(true)
     mainLoop()
   }
 }

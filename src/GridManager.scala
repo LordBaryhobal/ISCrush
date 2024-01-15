@@ -1,4 +1,4 @@
-import Candy.BonusType
+import Candy.{BonusType, models}
 import hevs.graphics.utils.GraphicsBitmap
 
 
@@ -309,6 +309,7 @@ class GridManager(val size: Int, val numberOfTeachers: Int) {
     }
     val candyA: Candy = grid(y1)(x1)
     val candyB: Candy = grid(y2)(x2)
+    candyA.audio.play(false)
 
 
     if (init) {
