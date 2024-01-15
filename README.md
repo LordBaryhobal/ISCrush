@@ -1,5 +1,31 @@
 # ISCrush
 
+---
+## Table of contents
+<details>
+<summary>Show</summary>
+
+<!-- TOC -->
+* [ISCrush](#iscrush)
+  * [Table of contents](#table-of-contents)
+  * [Introduction](#introduction)
+  * [Configuration of the game](#configuration-of-the-game)
+  * [Rules](#rules-)
+    * [Bonus](#bonus)
+  * [Controls](#controls)
+    * [Mouse](#mouse)
+    * [Console](#console)
+  * [Structure of the game](#structure-of-the-game-)
+  * [Logic flow of the game](#logic-flow-of-the-game)
+    * [Initialization](#initialization-)
+    * [Mainloop](#mainloop)
+    * [Input Handling](#input-handling)
+    * [Processing Combos](#processing-combos)
+<!-- TOC -->
+</details>
+
+---
+
 ## Introduction
 Welcome to the best game of the world ! In this game you will be able 
 to move the head of your favorite teachers to win points. You will discover a
@@ -47,19 +73,51 @@ choose the direction of the teacher you want to switch it with.
 - 3 : switch to the top
 
 ## Structure of the game 
-To launch the game you will have to use the ISCrush object. 
+To launch the game you will have to use the ISCrush object.
 
+| Class / Object     | Purpose                                                                              |
+|:-------------------|:-------------------------------------------------------------------------------------|
+| **ISCrush**        | Main object which coordinates all the elements (contains the main function)          |
+| **Candy**          | Class which creates all the teachers                                                 |
+| **GridManager**    | Generates the grid and handles all the logic (moving candies, combos, bonuses, etc.) |
+| **GridRenderer**   | Renders the grid                                                                     |
+| **InputHandler**   | Allows us to use the mouse or the keyboard                                           |
+| **ConsoleManager** | Allows us to play in the console                                                     |
+| **MouseManager**   | Allows us to use the mouse to play the game                                          |
+| **Input**          | Allows us to use the keyboard                                                        |
+| **Pos**            | Stores a 2D position (for candies)                                                   |
+| **Score**          | Stores the score of the game                                                         |
+| **Audio**          | Allow us to play audio                                                               |
+| **AudioManager**   | Manages audio resources                                                              |
 
-| Name               | Purpose                                                  |
-|:-------------------|:---------------------------------------------------------|
-| **ISCrush**        | allows us to launch the game (contains the main object)  |
-| **Candy**          | Class which creates all the teachers                     |
-| **GridManager**    | generates the grid and all the logic                     |
-| **GridRenderer**   | render the grid                                          |
-| **ConsoleManager** | allow us to play in the console                          |
-| **MouseManager**   | allow us to use the mouse to play the game               |
-| **InputHandler**   | allow us to use the mouse or the keyboard                |
-| **Input**          | allow us to use the keyboard                             |
-| **Pos**            | creates tuples to configure the positions of the candies |
-| **Score**          | has the score of the game                                |
-| **Audio**          | allow us to play audio                                   |
+## Logic flow of the game
+
+### Initialization 
+When `ISCrush` is launched, after all the settings are entered, the different managers are created, namely:
+ - A `GridManager` to manage the grid (what a surprise)
+ - A `GridRenderer` to render the grid
+ - An `InputHandler` to manage inputs (would that be from the console or with the mouse)
+ - A `Score` instance to keep track of the player's progress
+
+When the `GridManager` is created, a 2D array is built and filled with random `Candy` instances.
+Before starting the game, the manager makes sure that there is no combo in the grid by repeatedly simplifying available combos and refilling the grid (see [Processing Combos](#processing-combos))
+
+### Mainloop
+The main game loop is pretty straightforward. The following steps are executed on every frame (as long as the game is running):
+ 1. If there is an input available, and it is not already being processed
+    1. A new thread is started to handle it
+ 2. The grid is rendered
+
+### Input Handling
+To process an input, the selected candies are first swapped.
+The `GridManager` then checks for combos and simplifies them (see [Processing Combos](#processing-combos))
+If no combo was found (i.e. the grid hasn't changed), the candies are swapped back in place, thus cancelling the move.
+
+### Processing Combos
+ 1. To process combos, a copy of the grid is created. We thus have the main `grid` and a copy `tmpGrid`.
+    The manager checks the candies in `grid` but modifies `tmpGrid`.
+    At the end of the process, `tmpGrid` is copied back into `grid`.
+
+ 2. When a combo is found (3 or more consecutive candies of the same type), each cell of the combo is emptied.
+ 3. After checking the whole grid, the manager will fill the holes by repeatedly moving down holey columns, until the grid is full again.
+ 4. If a combo was found, this process is repeated, until no more combo can be found.
