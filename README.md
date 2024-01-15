@@ -1,6 +1,5 @@
 # ISCrush
 
----
 ## Table of contents
 <details>
 <summary>Show</summary>
@@ -10,12 +9,12 @@
   * [Table of contents](#table-of-contents)
   * [Introduction](#introduction)
   * [Configuration of the game](#configuration-of-the-game)
-  * [Rules](#rules-)
+  * [Rules](#rules)
     * [Bonus](#bonus)
   * [Controls](#controls)
     * [Mouse](#mouse)
     * [Console](#console)
-  * [Structure of the game](#structure-of-the-game-)
+  * [Structure of the game](#structure-of-the-game)
   * [Logic flow of the game](#logic-flow-of-the-game)
     * [Initialization](#initialization-)
     * [Mainloop](#mainloop)
@@ -23,8 +22,6 @@
     * [Processing Combos](#processing-combos)
 <!-- TOC -->
 </details>
-
----
 
 ## Introduction
 Welcome to the best game of the world ! In this game you will be able 
@@ -39,7 +36,7 @@ When you launch the game you will have to choose the size of the grid in the con
 of teacher that you really like. Finally, choose if you want to play in the console or in 
 a well-designed window.
 
-## Rules 
+## Rules
 Move the teachers to make combinations of at least three identical teachers. If you do it, you win some points. 
 You can also win more points by doing combinations of more than three heads.
 
@@ -72,7 +69,7 @@ choose the direction of the teacher you want to switch it with.
 - 2 : switch to the left
 - 3 : switch to the top
 
-## Structure of the game 
+## Structure of the game
 To launch the game you will have to use the ISCrush object.
 
 | Class / Object     | Purpose                                                                              |
