@@ -8,8 +8,10 @@ object ISCrush {
   var score: Score = _
 
   def setInput(x: Int, y: Int, dir: Int): Unit = {
-    swap = (x, y, dir)
-    inputReady = true
+    if (!inputReady) {
+      swap = (x, y, dir)
+      inputReady = true
+    }
   }
 
   def playAnimation(): Unit = {
