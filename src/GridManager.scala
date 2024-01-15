@@ -142,7 +142,7 @@ class GridManager(val size: Int, val numberOfTeachers: Int) {
           }
           case BonusType.BOMB => {  // Remove 3x3 square centered on candy
             for (dy: Int <- -1 to 1) {
-              if (y + dy >= 0 && x + dy < size) {
+              if (y + dy >= 0 && y + dy < size) {
                 for (dx: Int <- -1 to 1) {
                   if (x + dx >= 0 && x + dx < size) {
                     tmpGrid(y+dy)(x+dx) = Candy.empty()
