@@ -53,6 +53,9 @@ object ISCrush {
   }
 
   def main(args: Array[String]): Unit = {
+
+
+
     Candy.init()
 
     var inputHandler: InputHandler = null
