@@ -1,10 +1,17 @@
 import java.awt.event.{MouseEvent, MouseListener}
 
-class MouseManager(val renderer: GridRenderer, val score : Score) extends MouseListener with InputHandler {
+/**
+ * This class allow us to use the mouse to play the game
+ * @param renderer Needs the GridRenderer class to interact with
+ */
+class MouseManager(val renderer: GridRenderer) extends MouseListener with InputHandler {
   private var startPos: (Int, Int) = (0, 0)
   private var endPos: (Int, Int) = (0, 0)
   private var direction: Int = 0
 
+  /**
+   * This method convert the click of the mouse to the coordinates of the window
+   */
   override def mousePressed(e: MouseEvent): Unit = {
     val winX: Int = e.getX
     val winY: Int = e.getY
@@ -12,6 +19,9 @@ class MouseManager(val renderer: GridRenderer, val score : Score) extends MouseL
     startPos = renderer.screenToGrid(winX, winY)
   }
 
+  /**
+   * This method change the position of the candy when we release the click of the mouse
+   */
   override def mouseReleased(e: MouseEvent): Unit = {
     val winX: Int = e.getX
     val winY: Int = e.getY

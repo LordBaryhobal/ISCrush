@@ -23,6 +23,9 @@ object Candy {
     ('E', new GraphicsBitmap("/res/candies/zahno.jpg"))
   )
 
+  /**
+   * Create an empty candy
+   */
   def empty(): Candy = {
     return new Candy(' ', new GraphicsBitmap("/res/candies/fauchere.jpg") )
   }

@@ -1,3 +1,6 @@
+/**
+ * Class which let the player play with the console directly
+ */
 class ConsoleManager extends InputHandler {
   new Thread(() => {
     while (true) {

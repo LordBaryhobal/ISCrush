@@ -3,6 +3,10 @@ import hevs.graphics.FunGraphics
 import java.awt.{Color, Font}
 import javax.swing.SwingConstants
 
+/**
+ * This class display the game
+ * @param gridManager allow us to use the parameter of the class GridManager
+ */
 class GridRenderer(val gridManager: GridManager) {
   private val FPS: Int = 30
   private val gridSize: Int = 600
@@ -16,6 +20,10 @@ class GridRenderer(val gridManager: GridManager) {
   var animationStartTime: Long = 0
   val ANIMATION_DURATION: Long = 500
 
+
+  /**
+   * this function print the grid and the title on the window
+   */
   def render(): Unit = {
     window.frontBuffer.synchronized({
       window.clear()
@@ -91,12 +99,23 @@ class GridRenderer(val gridManager: GridManager) {
     window.syncGameLogic(FPS)
   }
 
+  /**
+   * This function convert the coordinates of the grid to the coordinates of the window
+   * @param x coordinate of the x from the grid
+   * @param y coordinate of the y from the grid
+   */
   def gridToScreen(x: Int, y: Int): (Double, Double) = {
     val winX: Double = cellSize * x
     val winY: Double = cellSize * y + titleHeight
     return (winX, winY)
   }
 
+  /**
+   * This function convert the coordinates of window to the coordinate of the grid
+   *
+   * @param x coordinate of the x from the window
+   * @param y coordinate of the y from the window
+   */
   def screenToGrid(winX: Double, winY: Double): (Int, Int) = {
     val x: Int = math.floor(winX / cellSize).toInt
     val y: Int = math.floor((winY - titleHeight) / cellSize).toInt
