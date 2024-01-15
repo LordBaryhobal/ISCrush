@@ -1,5 +1,4 @@
 import hevs.graphics.utils.GraphicsBitmap
-
 import scala.collection.mutable.ArrayBuffer
 
 /**

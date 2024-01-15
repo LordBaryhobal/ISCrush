@@ -1,3 +1,8 @@
+/**
+ * This class interact with the score.
+ *
+ * @param finalPoints number of points that the player needs to win the game
+ */
 class Score(var finalPoints : Int) {
   var curPoints : Int  = 0
   var victory : Boolean = false

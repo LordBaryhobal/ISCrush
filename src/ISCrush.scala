@@ -68,7 +68,7 @@ object ISCrush {
     inputChoice match {
       case 0 => inputHandler = new ConsoleManager()
       case 1 => {
-        val mouseManager: MouseManager = new MouseManager(renderer, score)
+        val mouseManager: MouseManager = new MouseManager(renderer)
         renderer.window.addMouseListener(mouseManager)
         inputHandler = mouseManager
       }
