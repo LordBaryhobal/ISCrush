@@ -2,7 +2,7 @@ import java.awt.event.{MouseEvent, MouseListener}
 
 /**
  * This class allow us to use the mouse to play the game
- * @param renderer Needs the GridRenderer class to interact with
+ * @param renderer needed to convert coordinates
  */
 class MouseManager(val renderer: GridRenderer) extends MouseListener with InputHandler {
   private var startPos: (Int, Int) = (0, 0)
@@ -10,7 +10,7 @@ class MouseManager(val renderer: GridRenderer) extends MouseListener with InputH
   private var direction: Int = 0
 
   /**
-   * This method convert the click of the mouse to the coordinates of the window
+   * This method converts the click of the mouse to the coordinates of the grid
    */
   override def mousePressed(e: MouseEvent): Unit = {
     val winX: Int = e.getX
@@ -20,7 +20,7 @@ class MouseManager(val renderer: GridRenderer) extends MouseListener with InputH
   }
 
   /**
-   * This method change the position of the candy when we release the click of the mouse
+   * This method changes the position of the candy when we release the click of the mouse
    */
   override def mouseReleased(e: MouseEvent): Unit = {
     val winX: Int = e.getX

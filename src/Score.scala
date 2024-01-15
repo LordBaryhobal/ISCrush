@@ -1,5 +1,5 @@
 /**
- * This class interact with the score.
+ * This class manages a score.
  *
  * @param finalPoints number of points that the player needs to win the game
  */
@@ -9,8 +9,8 @@ class Score(var finalPoints : Int) {
   var combo : Boolean = false
 
   /**
-   * This method print in the console when there is a combo and display the current score. It stops the
-   * game when the final score is reached.
+   * Prints in the console when there is a combo and displays the current score. It stops the
+   * game when the final score is reached
    */
   def comboWin(): Unit = {
     if(combo){

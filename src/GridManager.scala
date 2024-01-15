@@ -3,7 +3,7 @@ import hevs.graphics.utils.GraphicsBitmap
 
 /**
  * Class which controls the logic of the grid (fill candies, process combos)
- * @param size of the grid (given by the user)
+ * @param size size of the grid (given by the user)
  * @param numberOfTeachers the number of different teachers
  */
 class GridManager(val size: Int, val numberOfTeachers: Int) {
@@ -256,6 +256,12 @@ class GridManager(val size: Int, val numberOfTeachers: Int) {
     return hasChanged
   }
 
+  /**
+   * Swaps a candy with one of its neighbour
+   * @param x X position of the first candy
+   * @param y Y position of the first candy
+   * @param dir direction to the second candy (0=RIGHT/1=DOWN/2=LEFT/3=UP)
+   */
   def swapCandies(x : Int, y : Int, dir : Int): Unit = {
     val x1: Int = x
     val y1: Int = y
@@ -319,7 +325,7 @@ class GridManager(val size: Int, val numberOfTeachers: Int) {
   }
 
   /**
-   * Stop the animation when candies don't move anymore
+   * Stops the animation when candies don't move anymore
    */
   def clearAnimation(): Unit = {
     for (y: Int <- 0 until size) {

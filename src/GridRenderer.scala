@@ -5,8 +5,8 @@ import java.awt.{Color, Font}
 import javax.swing.SwingConstants
 
 /**
- * This class display the game
- * @param gridManager allow us to use the parameter of the class GridManager
+ * This class displays the game
+ * @param gridManager allow us to access the grid
  */
 class GridRenderer(val gridManager: GridManager) {
   private val FPS: Int = 30
@@ -23,7 +23,7 @@ class GridRenderer(val gridManager: GridManager) {
 
 
   /**
-   * this function print the grid and the title on the window
+   * Displays the grid, title and score on the window
    */
   def render(): Unit = {
     window.frontBuffer.synchronized({
@@ -110,9 +110,10 @@ class GridRenderer(val gridManager: GridManager) {
   }
 
   /**
-   * This function convert the coordinates of the grid to the coordinates of the window
-   * @param x coordinate of the x from the grid
-   * @param y coordinate of the y from the grid
+   * Convert the coordinates of the grid to the coordinates of the window
+   * @param x X position in the grid
+   * @param y Y position in the grid
+   * @return a tuple representing the position in window coordinates
    */
   def gridToScreen(x: Int, y: Int): (Double, Double) = {
     val winX: Double = cellSize * x
@@ -121,10 +122,11 @@ class GridRenderer(val gridManager: GridManager) {
   }
 
   /**
-   * This function convert the coordinates of window to the coordinate of the grid
+   * Converts the coordinates of the window to the coordinate of the grid
    *
-   * @param x coordinate of the x from the window
-   * @param y coordinate of the y from the window
+   * @param x X position in the window
+   * @param y Y position in the window
+   * @return a tuple representing the position in grid coordinates
    */
   def screenToGrid(winX: Double, winY: Double): (Int, Int) = {
     val x: Int = math.floor(winX / cellSize).toInt
