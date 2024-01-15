@@ -50,9 +50,9 @@ choose the direction of the teacher you want to switch it with.
 To launch the game you will have to use the ISCrush object. 
 
 
-| Name               | Effect                                                   |
+| Name               | Purpose                                                  |
 |:-------------------|:---------------------------------------------------------|
-| **ISCrush**        | allow us to launch the game (contains the main object)   |
+| **ISCrush**        | allows us to launch the game (contains the main object)  |
 | **Candy**          | Class which creates all the teachers                     |
 | **GridManager**    | generates the grid and all the logic                     |
 | **GridRenderer**   | render the grid                                          |
