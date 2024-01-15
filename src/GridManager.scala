@@ -1,5 +1,9 @@
 import hevs.graphics.utils.GraphicsBitmap
 
+/**
+ * Class which controls the logic of the grid (fill candies, process combos)
+ * @param size of the grid (given by the user)
+ */
 class GridManager(val size : Int) {
   var init: Boolean = false
   var grid: Array[Array[Candy]] = Array.ofDim(size, size)
@@ -265,6 +269,9 @@ class GridManager(val size : Int) {
     grid(y2)(x2) = candyA
   }
 
+  /**
+   * Stop the animation when candies don't move anymore
+   */
   def clearAnimation(): Unit = {
     for (y: Int <- 0 until size) {
       for (x: Int <- 0 until size) {

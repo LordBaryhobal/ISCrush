@@ -21,6 +21,10 @@ object Candy extends App{
   var SizeAndNum : (Int, Int) = (2,2)
 
 
+  /**
+   * Allow us to choose the size of the grid and the number of candies
+   * @return tuple (Int,Int)
+   */
   def difficulty(): (Int, Int) = {
     try {
       println("Choose the size of your grid : ")
@@ -34,6 +38,9 @@ object Candy extends App{
     }
   }
 
+  /**
+   * Create all the candies
+   */
   def init(): Unit = {
     models = new ArrayBuffer()
     val Fau = new GraphicsBitmap("/res/candies/fauchere.jpg")
@@ -76,6 +83,9 @@ object Candy extends App{
 
   }
 
+  /**
+   * Create an empty candy
+   */
   def empty(): Candy = {
     return new Candy(' ', new GraphicsBitmap("/res/candies/fauchere.jpg") )
   }

@@ -3,6 +3,10 @@ class Score(var finalPoints : Int) {
   var victory : Boolean = false
   var combo : Boolean = false
 
+  /**
+   * This method print in the console when there is a combo and display the current score. It stops the
+   * game when the final score is reached.
+   */
   def comboWin(): Unit = {
     if(combo){
       println(s"Your current score is : $curPoints")
