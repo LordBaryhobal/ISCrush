@@ -16,6 +16,8 @@ class Score(var finalPoints : Int) {
     }
     if(curPoints >= finalPoints){
       victory = true
+      AudioManager.stop("music")
+      AudioManager.play("victory")
       println("CONGRATULATIONS !!! ")
       ISCrush.running = false
     }

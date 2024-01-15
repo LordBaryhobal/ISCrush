@@ -8,12 +8,19 @@ object AudioManager {
     "kru" -> new Audio("/res/sound/kru.wav"),
     "scala" -> new Audio("/res/sound/scala.wav"),
     "starwars" -> new Audio("/res/sound/starwars.wav"),
-    "music" -> new Audio("/res/sound/Was-ist-dein-Lieblingsfach.wav", 0.1f)
+    "music" -> new Audio("/res/sound/Was-ist-dein-Lieblingsfach.wav", 0.1f),
+    "victory" -> new Audio("/res/sound/victory.wav", 0.1f)
   )
 
   def play(name: String, loop: Boolean = false): Unit = {
     if (audios.contains(name)) {
       audios(name).play(loop)
+    }
+  }
+
+  def stop(name: String): Unit = {
+    if (audios.contains(name)) {
+      audios(name).stop()
     }
   }
 }
