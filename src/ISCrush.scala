@@ -29,19 +29,19 @@ object ISCrush {
       gridOne.swapCandies(swap._1, swap._2, swap._3)
       playAnimation()
     }
-    Score.comboWin()
+    score.comboWin()
     gridOne.displayGrid()
     inputReady = false
     processingInput = false
   }
 
   def addComboScore(sizeCombo : Int ): Unit = {
-    Score.curPoints = Score.curPoints + sizeCombo
+    score.curPoints = score.curPoints + sizeCombo
   }
 
   private def mainLoop(): Unit = {
-    Score.combo = false
-    Score.curPoints = 0
+    score.combo = false
+    score.curPoints = 0
     gridOne.displayGrid()
     while(running) {
       if (inputReady && !processingInput) {
@@ -63,7 +63,7 @@ object ISCrush {
     val inputChoice: Int = Input.readInt()
 
     gridOne = new GridManager(Candy.SizeAndNum._1)
-    renderer = new GridRenderer(gridOne, score)
+    renderer = new GridRenderer(gridOne)
     score = new Score(100)
     inputChoice match {
       case 0 => inputHandler = new ConsoleManager()

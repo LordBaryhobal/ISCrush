@@ -124,7 +124,7 @@ class GridManager(val size : Int) {
     if (init) {
       val sizeCombo : Int = (x2-x1+1)*(y2-y1+1)
       ISCrush.addComboScore(sizeCombo)
-      Score.combo = true
+      ISCrush.score.combo = true
     }
   }
 

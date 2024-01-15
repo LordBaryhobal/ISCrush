@@ -3,7 +3,7 @@ import hevs.graphics.FunGraphics
 import java.awt.{Color, Font}
 import javax.swing.SwingConstants
 
-class GridRenderer(val gridManager: GridManager, val score : Score) {
+class GridRenderer(val gridManager: GridManager) {
   private val FPS: Int = 30
   private val gridSize: Int = 600
   private val titleHeight: Int = 100
@@ -49,7 +49,7 @@ class GridRenderer(val gridManager: GridManager, val score : Score) {
           }
         }
       }
-      if (Score.victory) {
+      if (ISCrush.score.victory) {
         window.drawFancyString(
           totalWidth/2,
           totalHeight/2,
@@ -78,7 +78,7 @@ class GridRenderer(val gridManager: GridManager, val score : Score) {
       window.drawString(
         totalWidth-10,
         10,
-        s"Score : \n ${Score.curPoints}",
+        s"Score : \n ${ISCrush.score.curPoints}",
         color = Color.BLACK,
         fontSize = 20,
         halign = SwingConstants.RIGHT,
