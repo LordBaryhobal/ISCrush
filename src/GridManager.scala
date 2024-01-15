@@ -48,7 +48,7 @@ class GridManager(val size: Int, val numberOfTeachers: Int) {
    */
   def randomCandy(): Candy = {
     val randomLetter = util.Random.nextInt(math.min(numberOfTeachers, Candy.models.length))
-    val (char : Char, img : GraphicsBitmap, audio : Audio) = Candy.models(randomLetter)
+    val (char : Char, img : GraphicsBitmap, audio : String) = Candy.models(randomLetter)
     val candy : Candy = new Candy(char, img, audio)
     return candy
   }
@@ -309,8 +309,9 @@ class GridManager(val size: Int, val numberOfTeachers: Int) {
     }
     val candyA: Candy = grid(y1)(x1)
     val candyB: Candy = grid(y2)(x2)
-    candyA.audio.play(false)
 
+    AudioManager.play("swap")
+    AudioManager.play(candyA.audio)
 
     if (init) {
       candyA.oldPos = candyA.pos

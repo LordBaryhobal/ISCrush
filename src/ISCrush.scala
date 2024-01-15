@@ -57,16 +57,13 @@ object ISCrush {
   def chooseDifficulty(): (Int, Int) = {
     println("Choose the size of your grid (> 2) : ")
     val gridSize = math.max(3, Input.readInt())
-    println(s"Choose the number of teacher (> 1 && <= ${Candy.models.length}) : ")
+    println(s"Choose the number of teachers (> 1 && <= ${Candy.models.length}) : ")
     val numberOfTeachers = math.min(math.max(2, Input.readInt()), Candy.models.length)
     return (gridSize, numberOfTeachers)
   }
 
   def main(args: Array[String]): Unit = {
     val (gridSize: Int, numberOfTeachers: Int) = chooseDifficulty()
-    var audio = new Audio("/res/sound/Was-ist-dein-Lieblingsfach.wav")
-
-
 
     var inputHandler: InputHandler = null
 
@@ -90,7 +87,8 @@ object ISCrush {
         return
       }
     }
-    //audio.play(true)
+
+    AudioManager.play("music", loop=true)
     mainLoop()
   }
 }

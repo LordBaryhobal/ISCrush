@@ -1,11 +1,11 @@
 import java.net.URL
-import javax.sound.sampled.{AudioInputStream, AudioSystem, Clip}
+import javax.sound.sampled.{AudioInputStream, AudioSystem, Clip, Control, FloatControl}
 
 /**
  * Simple class to manage audio clips
  * @param path path of the sound resource
  */
-class Audio(val path: String) {
+class Audio(val path: String, val volume: Float = 1.0f) {
   var audioClip: Clip = _
 
   val url: URL = classOf[Audio].getResource(path)
@@ -13,6 +13,8 @@ class Audio(val path: String) {
 
   audioClip = AudioSystem.getClip
   audioClip.open(audioStream)
+  val volumeControl: FloatControl = audioClip.getControl(FloatControl.Type.MASTER_GAIN).asInstanceOf[FloatControl]
+  setVolume(volume)
 
   /**
    * Starts playing the sound
@@ -42,5 +44,9 @@ class Audio(val path: String) {
    */
   def stop(): Unit = {
     audioClip.stop()
+  }
+
+  def setVolume(volume: Float): Unit = {
+    volumeControl.setValue(20f * math.log10(volume).toFloat)
   }
 }
