@@ -1,30 +1,52 @@
-import javax.sound.sampled.{AudioSystem, Clip}
-  class Audio(path: String) {
-    var audioClip: Clip = _
+import java.net.URL
+import javax.sound.sampled.{AudioInputStream, AudioSystem, Clip}
 
-    val url = classOf[Audio].getResource(path)
-    val audioStream = AudioSystem.getAudioInputStream(url)
+/**
+ * Simple class to manage audio clips
+ * @param path path of the sound resource
+ */
+class Audio(val path: String) {
+  var audioClip: Clip = _
 
-    audioClip = AudioSystem.getClip.asInstanceOf[Clip]
-    audioClip.open(audioStream)
+  val url: URL = classOf[Audio].getResource(path)
+  val audioStream: AudioInputStream = AudioSystem.getAudioInputStream(url)
 
+  audioClip = AudioSystem.getClip
+  audioClip.open(audioStream)
 
-    def play(): Unit = {
-      // Open stream and play
-      try {
-        if (!audioClip.isOpen) audioClip.open()
-        audioClip.stop()
-        audioClip.setMicrosecondPosition(0)
+  /**
+   * Starts playing the sound
+   *
+   * If the sound was already playing, it is played again from the beginning
+   * @param loop whether the sound should loop when reaching the end or not
+   */
+  def play(loop: Boolean = false): Unit = {
+    // Open stream and play
+    try {
+      if (!audioClip.isOpen) audioClip.open()
+      audioClip.stop()
+      audioClip.setMicrosecondPosition(0)
+      if (loop) {
+        audioClip.loop(Clip.LOOP_CONTINUOUSLY)
+      } else {
         audioClip.start()
-      } catch {
-        case e: Exception =>
-          e.printStackTrace()
       }
+    } catch {
+      case e: Exception =>
+        e.printStackTrace()
     }
   }
 
-object listen extends App {
-  var aud : Audio = new Audio("/res/sound/music.wav")
-  aud.play()
+  /**
+   * Stops playing the sound
+   */
+  def stop(): Unit = {
+    audioClip.stop()
+  }
+}
+
+object Audio extends App {
+  var audio: Audio = new Audio("/res/sound/music.wav")
+  audio.play()
   Input.readInt()
 }
