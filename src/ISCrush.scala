@@ -3,7 +3,7 @@ object ISCrush {
   private var inputReady: Boolean = false
   private var processingInput: Boolean = false
   private var swap: (Int, Int, Int) = (0, 0, 0)
-  private var gridOne: GridManager = _
+  private var gridManager: GridManager = _
   private var renderer: GridRenderer = _
   var score: Score = _
 
@@ -15,7 +15,7 @@ object ISCrush {
   def playAnimation(): Unit = {
     renderer.animationStartTime = System.currentTimeMillis()
     Thread.sleep(renderer.ANIMATION_DURATION)
-    gridOne.clearAnimation()
+    gridManager.clearAnimation()
   }
 
   /**
@@ -23,14 +23,14 @@ object ISCrush {
    */
   private def processInput(): Unit = {
     processingInput = true
-    gridOne.swapCandies(swap._1, swap._2, swap._3)
+    gridManager.swapCandies(swap._1, swap._2, swap._3)
     playAnimation()
-    if(!gridOne.simplifyGrid()){
-      gridOne.swapCandies(swap._1, swap._2, swap._3)
+    if(!gridManager.simplifyGrid()){
+      gridManager.swapCandies(swap._1, swap._2, swap._3)
       playAnimation()
     }
     score.comboWin()
-    gridOne.displayGrid()
+    gridManager.displayGrid()
     inputReady = false
     processingInput = false
   }
@@ -42,7 +42,7 @@ object ISCrush {
   private def mainLoop(): Unit = {
     score.combo = false
     score.curPoints = 0
-    gridOne.displayGrid()
+    gridManager.displayGrid()
     while(running) {
       if (inputReady && !processingInput) {
         new Thread(() => processInput()).start()
@@ -70,8 +70,8 @@ object ISCrush {
     println(" (1) in a window (with mouse)")
     val inputChoice: Int = Input.readInt()
 
-    gridOne = new GridManager(gridSize, numberOfTeachers)
-    renderer = new GridRenderer(gridOne)
+    gridManager = new GridManager(gridSize, numberOfTeachers)
+    renderer = new GridRenderer(gridManager)
     score = new Score(100)
     inputChoice match {
       case 0 => inputHandler = new ConsoleManager()
