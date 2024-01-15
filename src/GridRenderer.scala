@@ -10,7 +10,7 @@ import javax.swing.SwingConstants
  */
 class GridRenderer(val gridManager: GridManager) {
   private val FPS: Int = 30
-  private val gridSize: Int = 600
+  private val gridSize: Int = 400
   private val titleHeight: Int = 100
 
   private val totalWidth: Int = gridSize

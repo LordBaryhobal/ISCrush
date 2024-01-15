@@ -1,7 +1,7 @@
 - [x] Score
 - [x] Add error handling and boundaries
 - [x] Images
-- [ ] Complete documentation
+- [x] Complete documentation
 - [x] Center title
 - [X] Prevent moving if doesn't combo
 - [x] Animations
