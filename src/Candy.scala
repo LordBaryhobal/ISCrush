@@ -3,6 +3,7 @@ import hevs.graphics.utils.GraphicsBitmap
 /**
  * A simple class to represent candies
  * @param symbol The symbol of the candy type
+ * @param img The image of the candy type
  */
 class Candy(var symbol : Char, var img : GraphicsBitmap) {
   var oldPos: Pos = new Pos(0, 0)
