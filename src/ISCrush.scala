@@ -61,8 +61,6 @@ object ISCrush {
   }
 
   def main(args: Array[String]): Unit = {
-    Candy.init()
-
     val (gridSize: Int, numberOfTeachers: Int) = chooseDifficulty()
 
     var inputHandler: InputHandler = null
