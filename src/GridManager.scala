@@ -1,6 +1,7 @@
 import Candy.BonusType
 import hevs.graphics.utils.GraphicsBitmap
 
+
 /**
  * Class which controls the logic of the grid (fill candies, process combos)
  * @param size size of the grid (given by the user)
@@ -47,8 +48,8 @@ class GridManager(val size: Int, val numberOfTeachers: Int) {
    */
   def randomCandy(): Candy = {
     val randomLetter = util.Random.nextInt(math.min(numberOfTeachers, Candy.models.length))
-    val (char : Char, img : GraphicsBitmap) = Candy.models(randomLetter)
-    val candy : Candy = new Candy(char, img)
+    val (char : Char, img : GraphicsBitmap, audio : Audio) = Candy.models(randomLetter)
+    val candy : Candy = new Candy(char, img, audio)
     return candy
   }
 
@@ -173,7 +174,7 @@ class GridManager(val size: Int, val numberOfTeachers: Int) {
         val x: Int = (x1 + x2)/2
         val y: Int = (y1 + y2)/2
         val model: Candy = grid(y1)(x1)
-        val bonus: Candy = new Candy(model.symbol, model.img)
+        val bonus: Candy = new Candy(model.symbol, model.img, model.audio)
         bonus.pos = new Pos(x, y)
         bonus.bonusType = bonusType
         tmpGrid(y)(x) = bonus
@@ -306,10 +307,9 @@ class GridManager(val size: Int, val numberOfTeachers: Int) {
     if ((y1 >= size) || (y2 >= size)) {
       return
     }
-
-
     val candyA: Candy = grid(y1)(x1)
     val candyB: Candy = grid(y2)(x2)
+
 
     if (init) {
       candyA.oldPos = candyA.pos

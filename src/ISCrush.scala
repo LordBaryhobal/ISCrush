@@ -64,6 +64,9 @@ object ISCrush {
 
   def main(args: Array[String]): Unit = {
     val (gridSize: Int, numberOfTeachers: Int) = chooseDifficulty()
+    var audio = new Audio("/res/sound/Was-ist-dein-Lieblingsfach.wav")
+
+
 
     var inputHandler: InputHandler = null
 
@@ -87,7 +90,7 @@ object ISCrush {
         return
       }
     }
-
+    audio.play()
     mainLoop()
   }
 }

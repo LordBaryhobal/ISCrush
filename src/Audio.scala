@@ -44,9 +44,3 @@ class Audio(val path: String) {
     audioClip.stop()
   }
 }
-
-object Audio extends App {
-  var audio: Audio = new Audio("/res/sound/music.wav")
-  audio.play()
-  Input.readInt()
-}

@@ -10,7 +10,8 @@ class MouseManager(val renderer: GridRenderer) extends MouseListener with InputH
   private var direction: Int = 0
 
   /**
-   * This method converts the click of the mouse to the coordinates of the grid
+   * obtains the position of the cursor inside the window when the mouse is pressed
+   * @param e needs the class MouseEvent
    */
   override def mousePressed(e: MouseEvent): Unit = {
     val winX: Int = e.getX
@@ -21,6 +22,7 @@ class MouseManager(val renderer: GridRenderer) extends MouseListener with InputH
 
   /**
    * This method changes the position of the candy when we release the click of the mouse
+   * @param e needs the class MouseEvent
    */
   override def mouseReleased(e: MouseEvent): Unit = {
     val winX: Int = e.getX
