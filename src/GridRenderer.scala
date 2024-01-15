@@ -1,3 +1,4 @@
+import Candy.BonusType
 import hevs.graphics.FunGraphics
 
 import java.awt.{Color, Font}
@@ -54,6 +55,15 @@ class GridRenderer(val gridManager: GridManager) {
             val cx: Int = math.ceil(winX + cellSize / 2).toInt
             val cy: Int = math.ceil(winY + cellSize / 2).toInt
             window.drawTransformedPicture(cx, cy, 0, scale, candy.img)
+
+            if (candy.bonusType != BonusType.NONE) {
+              val txt: String = candy.bonusType match {
+                case BonusType.LINE => "Row"
+                case BonusType.COLUMN => "Col"
+                case BonusType.BOMB => "Bomb"
+              }
+              window.drawFancyString(cx, cy, txt, color=Color.BLACK, halign=SwingConstants.CENTER, valign=SwingConstants.CENTER, outlineColor=Color.WHITE, outlineThickness=2)
+            }
           }
         }
       }

@@ -1,3 +1,4 @@
+import Candy.BonusType
 import hevs.graphics.utils.GraphicsBitmap
 
 /**
@@ -112,7 +113,10 @@ class GridManager(val size: Int, val numberOfTeachers: Int) {
   }
 
   /**
-   * Simplify one combo and replaces it with empty candies
+   * Simplifies one combo and replaces it with empty candies,
+   * or a bonus
+   *
+   * If a bonus is part of the combo, its power is applied
    *
    * @param x1 X position of top left corner
    * @param y1 Y position of top left corner
@@ -122,7 +126,31 @@ class GridManager(val size: Int, val numberOfTeachers: Int) {
   private def simplifyCombo(x1: Int, y1: Int, x2: Int, y2: Int): Unit = {
     for (y: Int <- y1 to y2) {
       for (x: Int <- x1 to x2) {
-        tmpGrid(y)(x) = Candy.empty()
+        val candy: Candy = grid(y)(x)
+        candy.bonusType match {
+          case BonusType.NONE => tmpGrid(y)(x) = Candy.empty()
+          case BonusType.COLUMN => {  // Remove whole column
+            for (i: Int <- 0 until size) {
+              tmpGrid(i)(x) = Candy.empty()
+            }
+          }
+          case BonusType.LINE => {  // Remove whole line
+            for (i: Int <- 0 until size) {
+              tmpGrid(y)(i) = Candy.empty()
+            }
+          }
+          case BonusType.BOMB => {  // Remove 3x3 square centered on candy
+            for (dy: Int <- -1 to 1) {
+              if (y + dy >= 0 && x + dy < size) {
+                for (dx: Int <- -1 to 1) {
+                  if (x + dx >= 0 && x + dx < size) {
+                    tmpGrid(y+dy)(x+dx) = Candy.empty()
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     }
 
@@ -130,6 +158,26 @@ class GridManager(val size: Int, val numberOfTeachers: Int) {
       val sizeCombo : Int = (x2-x1+1)*(y2-y1+1)
       ISCrush.addComboScore(sizeCombo)
       ISCrush.score.combo = true
+
+      if (sizeCombo > 3) {
+        var bonusType: Int = BonusType.NONE
+        if (sizeCombo == 4) {
+          if (x2 != x1) {
+            bonusType = BonusType.LINE
+          } else {
+            bonusType = BonusType.COLUMN
+          }
+        } else if (sizeCombo == 5) {
+          bonusType = BonusType.BOMB
+        }
+        val x: Int = (x1 + x2)/2
+        val y: Int = (y1 + y2)/2
+        val model: Candy = grid(y1)(x1)
+        val bonus: Candy = new Candy(model.symbol, model.img)
+        bonus.pos = new Pos(x, y)
+        bonus.bonusType = bonusType
+        tmpGrid(y)(x) = bonus
+      }
     }
   }
 
