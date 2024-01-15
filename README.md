@@ -45,3 +45,21 @@ choose the direction of the teacher you want to switch it with.
 - 1 : switch to the bottom
 - 2 : switch to the left
 - 3 : switch to the top
+
+## Structure of the game 
+To launch the game you will have to use the ISCrush object. 
+
+
+| Name               | Effect                                                   |
+|:-------------------|:---------------------------------------------------------|
+| **ISCrush**        | allow us to launch the game (contains the main object)   |
+| **Candy**          | Class which creates all the teachers                     |
+| **GridManager**    | generates the grid and all the logic                     |
+| **GridRenderer**   | render the grid                                          |
+| **ConsoleManager** | allow us to play in the console                          |
+| **MouseManager**   | allow us to use the mouse to play the game               |
+| **InputHandler**   | allow us to use the mouse or the keyboard                |
+| **Input**          | allow us to use the keyboard                             |
+| **Pos**            | creates tuples to configure the positions of the candies |
+| **Score**          | has the score of the game                                |
+| **Audio**          | allow us to play audio                                   |
